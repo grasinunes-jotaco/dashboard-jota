@@ -102,7 +102,7 @@ table.data tfoot td{font-weight:700;border-top:1px solid var(--border)}
 <div class="header">
   <div>
     <h1>📊 Dashboard Vendas & Pipe 2026</h1>
-    <p>Atualizado automaticamente em 09/06/2026 às 09:20</p>
+    <p>Atualizado automaticamente em 09/06/2026 às 09:52</p>
   </div>
   <span class="upd-badge">🔄 Auto-atualiza às 21h</span>
 </div>
@@ -110,6 +110,7 @@ table.data tfoot td{font-weight:700;border-top:1px solid var(--border)}
 <div class="page-nav">
   <button class="page-btn active" onclick="goPage('pg-geral',this)">🌐 Geral</button>
   <button class="page-btn" onclick="goPage('pg-jotaco',this)">🏢 Jota Co</button>
+  <button class="page-btn" onclick="goPage('pg-seleto',this)">🎯 Seleto</button>
 </div>
 
 
@@ -1209,6 +1210,167 @@ table.data tfoot td{font-weight:700;border-top:1px solid var(--border)}
   </div>
 </div>
 
+<div id="pg-seleto" class="page" style="display:none">
+  <div class="tabs">
+    <button class="tab active" onclick="goTab('sl-overview',this,'sl')">Visão Geral</button>
+    <button class="tab" onclick="goTab('sl-vendas',this,'sl')">Vendas Fechadas</button>
+    <button class="tab" onclick="goTab('sl-pipe',this,'sl')">Pipeline</button>
+  </div>
+
+  <!-- OVERVIEW SELETO -->
+  <div id="sl-overview" class="section active">
+    <div class="kpi-grid">
+      <div class="kpi yellow"><label>Meta Anual</label>
+        <div class="val">R$ 18.0M</div>
+        <div class="sub">3 deals · ticket R$ 3.0M</div></div>
+      <div class="kpi green"><label>Vendas Fechadas</label>
+        <div class="val">R$ 9.0M</div>
+        <div class="sub">3 contratos</div></div>
+      <div class="kpi" style="border-color:#f8514920"><label>Atingimento</label>
+        <div class="val" style="color:#f85149">50.0%</div>
+        <div class="sub">GAP: R$ 9.0M</div></div>
+      <div class="kpi blue"><label>Pipe em Aberto</label>
+        <div class="val">R$ 3.0M</div>
+        <div class="sub">2 oportunidade(s)</div></div>
+    </div>
+
+    <div class="card" style="margin-bottom:20px">
+      <h3>Progresso Meta Anual Seleto</h3>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <span style="font-size:13px;color:var(--muted)">R$ 9.0M de R$ 18.0M</span>
+        <span style="font-size:20px;font-weight:700;color:#f85149">50.0%</span>
+      </div>
+      <div style="height:12px;background:var(--border);border-radius:99px;overflow:hidden;margin-bottom:8px">
+        <div style="width:50.0%;height:100%;background:linear-gradient(90deg,#3fb950,#58a6ff);border-radius:99px"></div>
+      </div>
+      <div style="display:flex;gap:16px;font-size:12px;color:var(--muted);margin-top:10px">
+        <span>✅ Fechado: <strong style="color:#3fb950">R$ 9.0M</strong></span>
+        <span>🔄 Negociação/Proposta: <strong style="color:#58a6ff">R$ 3.0M</strong></span>
+        <span>🎯 Realizado + Pipe: <strong style="color:#d29922">R$ 12.0M</strong> (66.7%)</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Resumo por Status</h3>
+      <div class="tbl-wrap">
+        <table class="data">
+          <thead><tr><th>Status</th><th style="text-align:right">Qtd</th><th style="text-align:right">Valor</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><span class="badge b-contrato">Fechado</span></td>
+              <td class="num">3</td>
+              <td class="num" style="color:#3fb950">R$ 9.0M</td>
+            </tr>
+            <tr>
+              <td><span class="badge b-prop">Negociação / Proposta Enviada</span></td>
+              <td class="num">2</td>
+              <td class="num" style="color:#58a6ff">R$ 3.0M</td>
+            </tr>
+          </tbody>
+          <tfoot><tr>
+            <td><strong>TOTAL</strong></td>
+            <td class="num"><strong>6</strong></td>
+            <td class="num" style="color:#d29922"><strong>R$ 12.0M</strong></td>
+          </tr></tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- VENDAS FECHADAS SELETO -->
+  <div id="sl-vendas" class="section">
+    <div class="card">
+      <h3>Vendas Fechadas Seleto (4 registros)</h3>
+      <div class="tbl-wrap">
+        <table class="data">
+          <thead><tr><th>#</th><th>Data</th><th>Cliente</th><th style="text-align:right">Valor</th><th>Status</th><th>Mês</th><th>Responsável</th><th>Origem</th></tr></thead>
+          <tbody><tr>
+          <td class="muted">1</td>
+          <td>24/03/2026</td>
+          <td><strong>JOSÉ NETTO</strong></td>
+          <td class="num" style="color:#3fb950">R$ 3.0M</td>
+          <td><span class="badge" style="background:rgba(63,185,80,.15);color:#3fb950">Fechado</span></td>
+          <td class="muted">Março</td>
+          <td class="muted">JOEL JOTA</td>
+          <td class="muted">CLIENTE ECOSSISTEMA</td>
+        </tr><tr>
+          <td class="muted">2</td>
+          <td>24/03/2026</td>
+          <td><strong>TIAGO GRANITO</strong></td>
+          <td class="num" style="color:#3fb950">R$ 3.0M</td>
+          <td><span class="badge" style="background:rgba(63,185,80,.15);color:#3fb950">Fechado</span></td>
+          <td class="muted">Março</td>
+          <td class="muted">JOEL JOTA</td>
+          <td class="muted">CLIENTE ECOSSISTEMA</td>
+        </tr><tr>
+          <td class="muted">3</td>
+          <td>08/05/2026</td>
+          <td><strong>VANESSA GOLTZMAN</strong></td>
+          <td class="num" style="color:#3fb950">R$ 3.0M</td>
+          <td><span class="badge" style="background:rgba(63,185,80,.15);color:#d29922">NEGOCIAÇÃO</span></td>
+          <td class="muted">Maio</td>
+          <td class="muted">GRASI/EMILY</td>
+          <td class="muted">CLIENTE BASE ATIVADA</td>
+        </tr><tr>
+          <td class="muted">4</td>
+          <td>08/05/2026</td>
+          <td><strong>WALKYRIA</strong></td>
+          <td class="num" style="color:#3fb950">R$ 3.0M</td>
+          <td><span class="badge" style="background:rgba(63,185,80,.15);color:#3fb950">Fechado</span></td>
+          <td class="muted">Maio</td>
+          <td class="muted">GRASI / EMILY</td>
+          <td class="muted">CLIENTE BASE ATIVADA</td>
+        </tr></tbody>
+          <tfoot><tr>
+            <td colspan="3"><strong>Total</strong></td>
+            <td class="num" style="color:#3fb950"><strong>R$ 12.0M</strong></td>
+            <td colspan="4"></td>
+          </tr></tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- PIPELINE SELETO -->
+  <div id="sl-pipe" class="section">
+    <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:20px">
+      <div class="kpi blue"><label>Pipe Seleto</label>
+        <div class="val">R$ 3.0M</div>
+        <div class="sub">2 oportunidade(s)</div></div>
+      <div class="kpi yellow"><label>Meta Anual</label>
+        <div class="val">R$ 18.0M</div></div>
+      <div class="kpi"><label>Atingimento</label>
+        <div class="val" style="color:#f85149">50.0%</div></div>
+    </div>
+    <div class="card">
+      <h3>Oportunidades Pipeline Seleto (2)</h3>
+      <div class="tbl-wrap">
+        <table class="data">
+          <thead><tr><th>#</th><th>Cliente</th><th>Descrição</th><th>Resp.</th><th>Status</th><th>Prev.</th><th style="text-align:right">Valor</th></tr></thead>
+          <tbody><tr>
+          <td class="muted">1</td>
+          <td><strong>AMBRENNA E VICTOR</strong></td>
+          <td class="muted" style="font-size:12px">FECHAR EM JUNHO</td>
+          <td class="muted">GRASI/EMILY</td>
+          <td><span class="badge b-prop">Proposta Enviada</span></td>
+          <td style="color:#f85149">May/2026</td>
+          <td class="num">R$ 3.0M</td>
+        </tr><tr>
+          <td class="muted">2</td>
+          <td><strong>1</strong></td>
+          <td class="muted" style="font-size:12px">3000000</td>
+          <td class="muted">0.07317073170731707</td>
+          <td><span class="badge b-def">—</span></td>
+          <td>—</td>
+          <td class="num">—</td>
+        </tr></tbody>
+          <tfoot><tr><td colspan="6"><strong>Total</strong></td><td class="num">R$ 3.0M</td></tr></tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 function goPage(id, btn) {
   document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
@@ -1217,7 +1379,8 @@ function goPage(id, btn) {
   btn.classList.add('active');
 }
 function goTab(id, btn, prefix) {
-  document.querySelectorAll('#pg-' + (prefix==='g'?'geral':'jotaco') + ' .section').forEach(s => s.classList.remove('active'));
+  const pageMap = {'g':'geral','jc':'jotaco','sl':'seleto'};
+  document.querySelectorAll('#pg-' + (pageMap[prefix]||prefix) + ' .section').forEach(s => s.classList.remove('active'));
   const parent = btn.closest('.page');
   parent.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
