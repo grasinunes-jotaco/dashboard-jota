@@ -3,714 +3,1243 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard Vendas & Pipe 2026 — Joel Jota Co</title>
+<title>Dashboard Vendas 2026 · Joel Jota Co</title>
 <style>
-  :root {
-    --bg:#0d1117;--card:#161b22;--card2:#1c2330;--border:#30363d;
-    --text:#e6edf3;--muted:#8b949e;--accent:#58a6ff;
-    --green:#3fb950;--yellow:#d29922;--red:#f85149;
-    --purple:#bc8cff;--orange:#ffa657;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:24px;font-size:14px}
-  .header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;gap:16px;flex-wrap:wrap}
-  .header h1{font-size:20px;font-weight:700;letter-spacing:-0.3px}
-  .header p{color:var(--muted);font-size:12px;margin-top:4px}
-  .tabs{display:flex;gap:4px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:4px}
-  .tab{padding:6px 14px;border-radius:7px;font-size:12px;font-weight:500;cursor:pointer;color:var(--muted);border:none;background:none;transition:all .15s}
-  .tab.active{background:var(--card2);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.4)}
-  .tab:hover:not(.active){color:var(--text)}
-  .section{display:none}.section.active{display:block}
-  .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
-  .kpi{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px}
-  .kpi label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:8px}
-  .kpi .val{font-size:24px;font-weight:700;line-height:1}
-  .kpi .sub{font-size:11px;color:var(--muted);margin-top:5px}
-  .kpi.green .val{color:var(--green)}.kpi.blue .val{color:var(--accent)}
-  .kpi.yellow .val{color:var(--yellow)}.kpi.purple .val{color:var(--purple)}
-  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
-  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px}
-  .card h3{font-size:12px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:16px}
-  .bar-chart{display:flex;flex-direction:column;gap:10px}
-  .bar-row{display:flex;flex-direction:column;gap:4px}
-  .bar-label{display:flex;justify-content:space-between;font-size:12px}
-  .bar-label span:last-child{color:var(--muted);font-size:11px}
-  .bar-bg{height:8px;background:var(--border);border-radius:99px;overflow:hidden}
-  .bar-fill{height:100%;border-radius:99px}
-  .trim-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
-  .trim-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px}
-  .trim-card .trim-label{font-size:11px;color:var(--muted);margin-bottom:6px}
-  .trim-card .trim-val{font-size:18px;font-weight:700}
-  .trim-card .trim-pct{font-size:12px;margin-top:4px}
-  .tbl-wrap{overflow-x:auto}
-  table.data{width:100%;border-collapse:collapse;font-size:13px}
-  table.data th{text-align:left;color:var(--muted);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:.6px;padding:8px 10px;border-bottom:1px solid var(--border)}
-  table.data td{padding:10px;border-bottom:1px solid rgba(48,54,61,.4)}
-  table.data tr:last-child td{border-bottom:none}
-  table.data tr:hover td{background:rgba(255,255,255,.025)}
-  table.data td.num{text-align:right;font-variant-numeric:tabular-nums}
-  table.data td.muted{color:var(--muted);font-size:12px}
-  table.data tfoot td{font-weight:700;border-top:1px solid var(--border)}
-  .badge{display:inline-block;padding:2px 9px;border-radius:99px;font-size:11px;font-weight:600;white-space:nowrap}
-  .b-contrato{background:rgba(63,185,80,.15);color:#3fb950}
-  .b-neg{background:rgba(88,166,255,.15);color:#58a6ff}
-  .b-prop{background:rgba(210,153,34,.15);color:#d29922}
-  .b-prosp{background:rgba(188,140,255,.15);color:#bc8cff}
-  .b-def{background:rgba(139,148,158,.15);color:#8b949e}
-  .bu-pill{display:inline-block;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:600;white-space:nowrap}
-  .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
-  .fbtn{background:var(--card2);border:1px solid var(--border);color:var(--muted);border-radius:8px;padding:4px 13px;font-size:12px;cursor:pointer;transition:all .15s}
-  .fbtn.active,.fbtn:hover{border-color:var(--accent);color:var(--text);background:rgba(88,166,255,.1)}
-  .ok{color:#3fb950}.warn{color:#d29922}.bad{color:#f85149}
-  .sec-label{font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:8px}
-  .sec-label::after{content:'';flex:1;height:1px;background:var(--border)}
-  .updated-badge{background:rgba(63,185,80,.1);border:1px solid rgba(63,185,80,.3);color:#3fb950;padding:5px 12px;border-radius:8px;font-size:12px}
-  @media(max-width:900px){.kpi-grid{grid-template-columns:repeat(2,1fr)}.two-col{grid-template-columns:1fr}.trim-grid{grid-template-columns:repeat(2,1fr)}}
+:root{--bg:#0d1117;--card:#161b22;--card2:#1c2330;--border:#30363d;
+  --text:#e6edf3;--muted:#8b949e;--accent:#58a6ff;
+  --green:#3fb950;--yellow:#d29922;--red:#f85149;
+  --purple:#bc8cff;--orange:#ffa657}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  background:var(--bg);color:var(--text);min-height:100vh;padding:24px;font-size:14px}
+/* HEADER */
+.header{display:flex;justify-content:space-between;align-items:flex-start;
+  margin-bottom:20px;gap:16px;flex-wrap:wrap}
+.header h1{font-size:20px;font-weight:700;letter-spacing:-.3px}
+.header p{color:var(--muted);font-size:12px;margin-top:4px}
+/* PAGE NAV */
+.page-nav{display:flex;gap:0;background:var(--card);border:1px solid var(--border);
+  border-radius:12px;overflow:hidden;margin-bottom:20px}
+.page-btn{flex:1;padding:12px 20px;text-align:center;font-size:14px;font-weight:600;
+  cursor:pointer;color:var(--muted);border:none;background:none;transition:all .15s;
+  border-right:1px solid var(--border)}
+.page-btn:last-child{border-right:none}
+.page-btn.active{background:var(--accent);color:#fff}
+.page-btn:hover:not(.active){color:var(--text);background:var(--card2)}
+/* TAB NAV */
+.tabs{display:flex;gap:4px;background:var(--card);border:1px solid var(--border);
+  border-radius:10px;padding:4px;margin-bottom:20px;flex-wrap:wrap}
+.tab{padding:6px 14px;border-radius:7px;font-size:12px;font-weight:500;cursor:pointer;
+  color:var(--muted);border:none;background:none;transition:all .15s}
+.tab.active{background:var(--card2);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.4)}
+.tab:hover:not(.active){color:var(--text)}
+.section{display:none}.section.active{display:block}
+/* KPIS */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px}
+.kpi label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.8px;
+  color:var(--muted);margin-bottom:8px}
+.kpi .val{font-size:24px;font-weight:700;line-height:1}
+.kpi .sub{font-size:11px;color:var(--muted);margin-top:5px}
+.kpi.green .val{color:var(--green)}.kpi.blue .val{color:var(--accent)}
+.kpi.yellow .val{color:var(--yellow)}.kpi.purple .val{color:var(--purple)}
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px}
+.card h3{font-size:12px;text-transform:uppercase;letter-spacing:.8px;
+  color:var(--muted);margin-bottom:16px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+.trim-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.trim-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px}
+.trim-card .trim-label{font-size:11px;color:var(--muted);margin-bottom:6px}
+.trim-card .trim-val{font-size:18px;font-weight:700}
+.trim-card .trim-pct{font-size:12px;margin-top:4px}
+/* TABELAS */
+.tbl-wrap{overflow-x:auto}
+table.data{width:100%;border-collapse:collapse;font-size:13px}
+table.data th{text-align:left;color:var(--muted);font-weight:500;font-size:11px;
+  text-transform:uppercase;letter-spacing:.6px;padding:8px 10px;border-bottom:1px solid var(--border)}
+table.data td{padding:10px;border-bottom:1px solid rgba(48,54,61,.4)}
+table.data tr:last-child td{border-bottom:none}
+table.data tr:hover td{background:rgba(255,255,255,.025)}
+table.data td.num{text-align:right;font-variant-numeric:tabular-nums}
+table.data td.muted{color:var(--muted);font-size:12px}
+table.data tfoot td{font-weight:700;border-top:1px solid var(--border)}
+/* BADGES */
+.badge{display:inline-block;padding:2px 9px;border-radius:99px;font-size:11px;
+  font-weight:600;white-space:nowrap}
+.b-contrato{background:rgba(63,185,80,.15);color:#3fb950}
+.b-neg{background:rgba(88,166,255,.15);color:#58a6ff}
+.b-prop{background:rgba(210,153,34,.15);color:#d29922}
+.b-prosp{background:rgba(188,140,255,.15);color:#bc8cff}
+.b-def{background:rgba(139,148,158,.15);color:#8b949e}
+.bu-pill{display:inline-block;padding:2px 8px;border-radius:6px;
+  font-size:11px;font-weight:600;white-space:nowrap}
+/* FILTERS */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.fbtn{background:var(--card2);border:1px solid var(--border);color:var(--muted);
+  border-radius:8px;padding:4px 13px;font-size:12px;cursor:pointer;transition:all .15s}
+.fbtn.active,.fbtn:hover{border-color:var(--accent);color:var(--text);
+  background:rgba(88,166,255,.1)}
+/* SEC LABEL */
+.sec-label{font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);
+  margin-bottom:12px;margin-top:8px;display:flex;align-items:center;gap:8px}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--border)}
+/* UPDATED */
+.upd-badge{background:rgba(63,185,80,.1);border:1px solid rgba(63,185,80,.3);
+  color:#3fb950;padding:5px 12px;border-radius:8px;font-size:12px}
+/* COMP TABLE highlight */
+.comp-up{color:#3fb950}.comp-dn{color:#f85149}
+@media(max-width:900px){
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .two-col{grid-template-columns:1fr}
+  .trim-grid{grid-template-columns:repeat(2,1fr)}
+  .page-btn{font-size:12px;padding:10px 12px}
+}
 </style>
 </head>
 <body>
+
 <div class="header">
   <div>
-    <h1>📊 Dashboard Vendas & Pipe 2026 · Joel Jota Co</h1>
-    <p>Atualizado automaticamente em 09/06/2026 às 09:16</p>
+    <h1>📊 Dashboard Vendas & Pipe 2026</h1>
+    <p>Atualizado automaticamente em 09/06/2026 às 09:20</p>
   </div>
-  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
-    <span class="updated-badge">🔄 Auto-atualiza todo dia às 21h</span>
-    <div class="tabs">
-      <button class="tab active" onclick="goTab('visao-geral',this)">Visão Geral</button>
-      <button class="tab" onclick="goTab('pipeline',this)">Pipeline</button>
-      <button class="tab" onclick="goTab('metas',this)">Metas B.U.</button>
-      <button class="tab" onclick="goTab('mensal',this)">Mensal</button>
-    </div>
-  </div>
+  <span class="upd-badge">🔄 Auto-atualiza às 21h</span>
 </div>
 
-<!-- VISÃO GERAL -->
-<div id="visao-geral" class="section active">
-  <div class="kpi-grid">
-    <div class="kpi green">
-      <label>Vendas Realizadas</label>
-      <div class="val">R$ 391K</div>
-      <div class="sub">0.3% da meta anual</div>
-    </div>
-    <div class="kpi blue">
-      <label>Pipe Ativo</label>
-      <div class="val">R$ 41.0M</div>
-      <div class="sub">17 oportunidades</div>
-    </div>
-    <div class="kpi purple">
-      <label>Realizado + Pipe</label>
-      <div class="val">R$ 114.2M</div>
-      <div class="sub">80.0% da meta anual</div>
-    </div>
-    <div class="kpi yellow">
-      <label>Meta Anual</label>
-      <div class="val">R$ 142.6M</div>
-      <div class="sub">GAP: R$ 0</div>
-    </div>
+<div class="page-nav">
+  <button class="page-btn active" onclick="goPage('pg-geral',this)">🌐 Geral</button>
+  <button class="page-btn" onclick="goPage('pg-jotaco',this)">🏢 Jota Co</button>
+</div>
+
+
+<div id="pg-geral" class="page active">
+  <div class="tabs">
+    <button class="tab active" onclick="goTab('g-overview',this,'g')">Visão Geral</button>
+    <button class="tab" onclick="goTab('g-pipe',this,'g')">Pipeline</button>
+    <button class="tab" onclick="goTab('g-metas',this,'g')">Metas por B.U.</button>
+    <button class="tab" onclick="goTab('g-mensal',this,'g')">Mensal</button>
   </div>
 
+  <!-- OVERVIEW GERAL -->
+  <div id="g-overview" class="section active">
+    
+  <div class="kpi-grid">
+    <div class="kpi green"><label>Vendas Realizadas</label>
+      <div class="val">R$ 391K</div>
+      <div class="sub">0.3% da meta anual</div></div>
+    <div class="kpi blue"><label>Pipe Ativo</label>
+      <div class="val">R$ 113.8M</div>
+      <div class="sub">17 oportunidades</div></div>
+    <div class="kpi purple"><label>Realizado + Pipe</label>
+      <div class="val">R$ 114.2M</div>
+      <div class="sub">80.0% da meta anual</div></div>
+    <div class="kpi yellow"><label>Meta Anual</label>
+      <div class="val">R$ 142.6M</div>
+      <div class="sub">GAP: R$ 0</div></div>
+  </div>
   <div class="card" style="margin-bottom:20px">
-    <h3>Progresso Anual — Vendas Realizadas vs Meta</h3>
+    <h3>Progresso Anual</h3>
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-      <span style="font-size:13px;color:var(--muted)">R$ 391K realizados de R$ 142.6M</span>
+      <span style="font-size:13px;color:var(--muted)">R$ 391K de R$ 142.6M</span>
       <span style="font-size:20px;font-weight:700;color:var(--yellow)">0.3%</span>
     </div>
-    <div style="height:14px;background:var(--border);border-radius:99px;overflow:hidden;margin-bottom:6px">
+    <div style="height:12px;background:var(--border);border-radius:99px;overflow:hidden;margin-bottom:8px">
       <div style="width:0.3%;height:100%;background:linear-gradient(90deg,#3fb950,#58a6ff);border-radius:99px"></div>
     </div>
-    <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted)">
+    <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:10px">
       <span>Jan</span><span>Fev</span><span>Mar</span><span>Abr</span><span>Mai</span><span>Jun</span><span>Jul</span><span>Ago</span><span>Set</span><span>Out</span><span>Nov</span><span>Dez</span>
     </div>
-    <div style="margin-top:14px;display:flex;gap:8px;align-items:center">
+    <div style="display:flex;gap:8px;align-items:center">
       <div style="flex:1;height:6px;background:var(--border);border-radius:99px;overflow:hidden">
-        <div style="width:80.0%;height:100%;background:rgba(88,166,255,.5);border-radius:99px"></div>
+        <div style="width:80.0%;height:100%;background:rgba(88,166,255,.45);border-radius:99px"></div>
       </div>
-      <span style="font-size:12px;color:var(--accent);white-space:nowrap">+ Pipe: 80.0%</span>
+      <span style="font-size:12px;color:var(--accent);white-space:nowrap">Realizado + Pipe: 80.0%</span>
+    </div>
+  </div>
+    <div class="sec-label">Resumo Trimestral</div>
+    <div class="trim-grid"><div class="trim-card">
+          <div class="trim-label">Q1 (Jan–Mar)</div>
+          <div class="trim-val" style="color:#3fb950">R$ 392K</div>
+          <div class="trim-pct" style="color:#3fb950">19262000.0%</div>
+          <div style="font-size:11px;color:#8b949e;margin-top:4px">Meta: R$ 20.0M</div>
+        </div><div class="trim-card">
+          <div class="trim-label">Q2 (Abr–Jun)</div>
+          <div class="trim-val" style="color:#ffa657">R$ 75K</div>
+          <div class="trim-pct" style="color:#ffa657">48048000.0%</div>
+          <div style="font-size:11px;color:#8b949e;margin-top:4px">Meta: R$ 8.9M</div>
+        </div><div class="trim-card">
+          <div class="trim-label">Q3 (Jul–Set)</div>
+          <div class="trim-val" style="color:#8b949e">—</div>
+          <div class="trim-pct" style="color:#8b949e">—</div>
+          <div style="font-size:11px;color:#8b949e;margin-top:4px">Meta: —</div>
+        </div><div class="trim-card">
+          <div class="trim-label">Q4 (Out–Dez)</div>
+          <div class="trim-val" style="color:#8b949e">—</div>
+          <div class="trim-pct" style="color:#8b949e">—</div>
+          <div style="font-size:11px;color:#8b949e;margin-top:4px">Meta: —</div>
+        </div></div>
+  </div>
+
+  <!-- PIPELINE GERAL -->
+  <div id="g-pipe" class="section">
+    <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr)">
+      <div class="kpi blue"><label>Pipe Total</label>
+        <div class="val">R$ 41.0M</div>
+        <div class="sub">17 oportunidades</div></div>
+      <div class="kpi"><label>Ticket Médio</label>
+        <div class="val" style="color:var(--orange)">R$ 2.4M</div></div>
+      <div class="kpi"><label>% da Meta Anual</label>
+        <div class="val" style="color:var(--purple)">28.7%</div></div>
+    </div>
+    <div class="card">
+      <h3>Todas as Oportunidades (27)</h3>
+      <div class="filters">
+        <button class="fbtn active" onclick="filtPipe('g-pipe-tbody','g-pipe-total','todos',this)">Todos</button>
+        <button class="fbtn" onclick="filtPipe('g-pipe-tbody','g-pipe-total','A TRINCA MÍDIA',this)">A Trinca Mídia</button>
+        <button class="fbtn" onclick="filtPipe('g-pipe-tbody','g-pipe-total','PODCAST COM PLATÉIA',this)">Podcast c/ Plateia</button>
+        <button class="fbtn" onclick="filtPipe('g-pipe-tbody','g-pipe-total','SELETO',this)">Seleto</button>
+        <button class="fbtn" onclick="filtPipe('g-pipe-tbody','g-pipe-total','PUBLICIDADE',this)">Publicidade</button>
+      </div>
+      <div class="tbl-wrap">
+        <table class="data">
+          <thead><tr><th>#</th><th>B.U.</th><th>Cliente</th><th>Descrição</th><th>Resp.</th><th>Status</th><th>Prev.</th><th style="text-align:right">Valor</th></tr></thead>
+          <tbody id="g-pipe-tbody"><tr data-bu="A TRINCA MÍDIA">
+          <td class="muted">1</td>
+          <td><span class="bu-pill" style="background:rgba(188,140,255,0.15);color:#bc8cff">A TRINCA MÍDIA</span></td>
+          <td><strong>CARRARO</strong></td>
+          <td class="muted" style="font-size:12px">Em contrato – negociação forma de pgto</td>
+          <td class="muted">EMILY/GRASI</td>
+          <td><span class="badge b-contrato">Em Contrato</span></td>
+          <td>May/2026</td>
+          <td class="num">R$ 6.0M</td>
+        </tr><tr data-bu="A TRINCA MÍDIA">
+          <td class="muted">2</td>
+          <td><span class="bu-pill" style="background:rgba(188,140,255,0.15);color:#bc8cff">A TRINCA MÍDIA</span></td>
+          <td><strong>ADAPTA</strong></td>
+          <td class="muted" style="font-size:12px">NEGOCIAÇÃO FLÁVIO E JOEL</td>
+          <td class="muted">JOEL</td>
+          <td><span class="badge b-def">—</span></td>
+          <td>—</td>
+          <td class="num">R$ 5.0M</td>
+        </tr><tr data-bu="PUBLICIDADE">
+          <td class="muted">3</td>
+          <td><span class="bu-pill" style="background:rgba(255,166,87,0.15);color:#ffa657">PUBLICIDADE</span></td>
+          <td><strong>AUDIBLE</strong></td>
+          <td class="muted" style="font-size:12px">PROPOSTA ENVIADA - DEVOLUTIVA EM JUNHO</td>
+          <td class="muted">EMILY</td>
+          <td><span class="badge b-prop">Proposta Enviada</span></td>
+          <td style="color:#f85149">Jun/2026</td>
+          <td class="num">R$ 1.0M</td>
+        </tr><tr data-bu="A TRINCA MÍDIA">
+          <td class="muted">4</td>
+          <td><span class="bu-pill" style="background:rgba(188,140,255,0.15);color:#bc8cff">A TRINCA MÍDIA</span></td>
+          <td><strong>NEXFIT</strong></td>
+          <td class="muted" style="font-size:12px">A Trinca Mídia</td>
+          <td class="muted">GRASI</td>
+          <td><span class="badge b-prosp">Prospecção</span></td>
+          <td style="color:#f85149">May/2026</td>
+          <td class="num">R$ 5.0M</td>
+        </tr><tr data-bu="A TRINCA MÍDIA">
+          <td class="muted">5</td>
+          <td><span class="bu-pill" style="background:rgba(188,140,255,0.15);color:#bc8cff">A TRINCA MÍDIA</span></td>
+          <td><strong>KIWIFI</strong></td>
+          <td class="muted" style="font-size:12px">NEGOCIAÇÃO FLÁVIO E JOEL</td>
+          <td class="muted">JOEL</td>
+          <td><span class="badge b-neg">Em Negociação</span></td>
+          <td>—</td>
+          <td class="num">R$ 5.0M</td>
+        </tr><tr data-bu="A TRINCA MÍDIA">
+          <td class="muted">6</td>
+          <td><span class="bu-pill" style="background:rgba(188,140,255,0.15);color:#bc8cff">A TRINCA MÍDIA</span></td>
+          <td><strong>THE BEST AÇAÍ</strong></td>
+          <td class="muted" style="font-size:12px">Sérgio</td>
+          <td class="muted">EMILY/GRASI</td>
+          <td><span class="badge b-neg">Em Negociação</span></td>
+          <td>Jul/2026</td>
+          <td class="num">R$ 5.0M</td>
+        </tr><tr data-bu="A TRINCA MÍDIA">
+          <td class="muted">7</td>
+          <td><span class="bu-pill" style="background:rgba(188,140,255,0.15);color:#bc8cff">A TRINCA MÍDIA</span></td>
+          <td><strong>PORMADE</strong></td>
+          <td class="muted" style="font-size:12px">2 podcast caio e joel e mais conselho</td>
+          <td class="muted">EMILY</td>
+          <td><span class="badge b-neg">Em Negociação</span></td>
+          <td>—</td>
+          <td class="num">R$ 2.0M</td>
+        </tr><tr data-bu="SELETO">
+          <td class="muted">8</td>
+          <td><span class="bu-pill" style="background:rgba(63,185,80,0.15);color:#3fb950">SELETO</span></td>
+          <td><strong>AMBRENNA E VICTOR</strong></td>
+          <td class="muted" style="font-size:12px">FECHAR EM JUNHO</td>
+          <td class="muted">GRASI/EMILY</td>
+          <td><span class="badge b-prop">Proposta Enviada</span></td>
+          <td style="color:#f85149">May/2026</td>
+          <td class="num">R$ 3.0M</td>
+        </tr><tr data-bu="PODCAST COM PLATÉIA">
+          <td class="muted">9</td>
+          <td><span class="bu-pill" style="background:rgba(88,166,255,0.15);color:#58a6ff">PODCAST COM PLATÉIA</span></td>
+          <td><strong>FLÁVIO GARCIA</strong></td>
+          <td class="muted" style="font-size:12px">—</td>
+          <td class="muted">—</td>
+          <td><span class="badge b-def">—</span></td>
+          <td>Jul/2026</td>
+          <td class="num">R$ 1.0M</td>
+        </tr><tr data-bu="PODCAST COM PLATÉIA">
+          <td class="muted">10</td>
+          <td><span class="bu-pill" style="background:rgba(88,166,255,0.15);color:#58a6ff">PODCAST COM PLATÉIA</span></td>
+          <td><strong>CAIO SARAIVA</strong></td>
+          <td class="muted" style="font-size:12px">—</td>
+          <td class="muted">—</td>
+          <td><span class="badge b-def">—</span></td>
+          <td>—</td>
+          <td class="num">R$ 1.0M</td>
+        </tr><tr data-bu="PODCAST COM PLATÉIA">
+          <td class="muted">11</td>
+          <td><span class="bu-pill" style="background:rgba(88,166,255,0.15);color:#58a6ff">PODCAST COM PLATÉIA</span></td>
+          <td><strong>VICTOR - MLS</strong></td>
+          <td class="muted" style="font-size:12px">—</td>
+          <td class="muted">—</td>
+          <td><span class="badge b-def">—</span></td>
+          <td style="color:#f85149">Jun/2026</td>
+          <td class="num">R$ 1.0M</td>
+        </tr><tr data-bu="PODCAST COM PLATÉIA">
+          <td class="muted">12</td>
+          <td><span class="bu-pill" style="background:rgba(88,166,255,0.15);color:#58a6ff">PODCAST COM PLATÉIA</span></td>
+          <td><strong>MARCELO CRUZ</strong></td>
+          <td class="muted" style="font-size:12px">—</td>
+          <td class="muted">—</td>
+          <td><span class="badge b-def">—</span></td>
+          <td>—</td>
+          <td class="num">R$ 1.0M</td>
+        </tr><tr data-bu="PODCAST COM PLATÉIA">
+          <td class="muted">13</td>
+          <td><span class="bu-pill" style="background:rgba(88,166,255,0.15);color:#58a6ff">PODCAST COM PLATÉIA</span></td>
+          <td><strong>GABRIEL LONGUINI</strong></td>
+          <td class="muted" style="font-size:12px">—</td>
+          <td class="muted">EMILY</td>
+          <td><span class="badge b-def">—</span></td>
+          <td style="color:#f85149">Jun/2026</td>
+          <td class="num">R$ 1.0M</td>
+        </tr><tr data-bu="PODCAST COM PLATÉIA">
+          <td class="muted">14</td>
+          <td><span class="bu-pill" style="background:rgba(88,166,255,0.15);color:#58a6ff">PODCAST COM PLATÉIA</span></td>
+          <td><strong>THIAGO MANCUSSI</strong></td>
+          <td class="muted" style="font-size:12px">—</td>
+          <td class="muted">EMILY/GRASI</td>
+          <td><span class="badge b-def">—</span></td>
+          <td>Aug/2026</td>
+          <td class="num">R$ 1.0M</td>
+        </tr><tr data-bu="PODCAST COM PLATÉIA">
+          <td class="muted">15</td>
+          <td><span class="bu-pill" style="background:rgba(88,166,255,0.15);color:#58a6ff">PODCAST COM PLATÉIA</span></td>
+          <td><strong>LOFTY</strong></td>
+          <td class="muted" style="font-size:12px">—</td>
+          <td class="muted">—</td>
+          <td><span class="badge b-def">—</span></td>
+          <td>—</td>
+          <td class="num">R$ 1.0M</td>
+        </tr><tr data-bu="A TRINCA MÍDIA">
+          <td class="muted">16</td>
+          <td><span class="bu-pill" style="background:rgba(188,140,255,0.15);color:#bc8cff">A TRINCA MÍDIA</span></td>
+          <td><strong>AMARO</strong></td>
+          <td class="muted" style="font-size:12px">HORAS VOO</td>
+          <td class="muted">—</td>
+          <td><span class="badge b-def">—</span></td>
+          <td>—</td>
+          <td class="num">—</td>
+        </tr><tr data-bu="PODCAST COM PLATÉIA">
+          <td class="muted">17</td>
+          <td><span class="bu-pill" style="background:rgba(88,166,255,0.15);color:#58a6ff">PODCAST COM PLATÉIA</span></td>
+          <td><strong>DR CARLOS</strong></td>
+          <td class="muted" style="font-size:12px">FECHAR EM JUNHO</td>
+          <td class="muted">EMILY/GRASI</td>
+          <td><span class="badge b-def">—</span></td>
+          <td>Aug/2026</td>
+          <td class="num">R$ 1.0M</td>
+        </tr><tr data-bu="PODCAST COM PLATÉIA">
+          <td class="muted">18</td>
+          <td><span class="bu-pill" style="background:rgba(88,166,255,0.15);color:#58a6ff">PODCAST COM PLATÉIA</span></td>
+          <td><strong>NORMA</strong></td>
+          <td class="muted" style="font-size:12px">FECHAR EM JUNHO</td>
+          <td class="muted">—</td>
+          <td><span class="badge b-def">—</span></td>
+          <td>—</td>
+          <td class="num">R$ 1.0M</td>
+        </tr><tr data-bu="PUBLICIDADE">
+          <td class="muted">19</td>
+          <td><span class="bu-pill" style="background:rgba(255,166,87,0.15);color:#ffa657">PUBLICIDADE</span></td>
+          <td><strong>1</strong></td>
+          <td class="muted" style="font-size:12px">1000000</td>
+          <td class="muted">0.024390243902439025</td>
+          <td><span class="badge b-def">—</span></td>
+          <td>—</td>
+          <td class="num">—</td>
+        </tr><tr data-bu="ADVISORY">
+          <td class="muted">20</td>
+          <td><span class="bu-pill" style="background:rgba(248,81,73,0.15);color:#f85149">ADVISORY</span></td>
+          <td><strong>0</strong></td>
+          <td class="muted" style="font-size:12px">0</td>
+          <td class="muted">0</td>
+          <td><span class="badge b-def">—</span></td>
+          <td>—</td>
+          <td class="num">—</td>
+        </tr><tr data-bu="A TRINCA MÍDIA">
+          <td class="muted">21</td>
+          <td><span class="bu-pill" style="background:rgba(188,140,255,0.15);color:#bc8cff">A TRINCA MÍDIA</span></td>
+          <td><strong>7</strong></td>
+          <td class="muted" style="font-size:12px">28000000</td>
+          <td class="muted">0.6829268292682927</td>
+          <td><span class="badge b-def">—</span></td>
+          <td>—</td>
+          <td class="num">—</td>
+        </tr><tr data-bu="SELETO">
+          <td class="muted">22</td>
+          <td><span class="bu-pill" style="background:rgba(63,185,80,0.15);color:#3fb950">SELETO</span></td>
+          <td><strong>1</strong></td>
+          <td class="muted" style="font-size:12px">3000000</td>
+          <td class="muted">0.07317073170731707</td>
+          <td><span class="badge b-def">—</span></td>
+          <td>—</td>
+          <td class="num">—</td>
+        </tr><tr data-bu="JOTA EDITION">
+          <td class="muted">23</td>
+          <td><span class="bu-pill" style="background:rgba(210,153,34,0.15);color:#d29922">JOTA EDITION</span></td>
+          <td><strong>0</strong></td>
+          <td class="muted" style="font-size:12px">0</td>
+          <td class="muted">0</td>
+          <td><span class="badge b-def">—</span></td>
+          <td>—</td>
+          <td class="num">—</td>
+        </tr><tr data-bu="PALESTRAS">
+          <td class="muted">24</td>
+          <td><span class="bu-pill" style="background:rgba(188,140,255,0.15);color:#bc8cff">PALESTRAS</span></td>
+          <td><strong>0</strong></td>
+          <td class="muted" style="font-size:12px">0</td>
+          <td class="muted">0</td>
+          <td><span class="badge b-def">—</span></td>
+          <td>—</td>
+          <td class="num">—</td>
+        </tr><tr data-bu="JOTA LAB">
+          <td class="muted">25</td>
+          <td><span class="bu-pill" style="background:rgba(57,211,83,0.15);color:#39d353">JOTA LAB</span></td>
+          <td><strong>0</strong></td>
+          <td class="muted" style="font-size:12px">0</td>
+          <td class="muted">0</td>
+          <td><span class="badge b-def">—</span></td>
+          <td>—</td>
+          <td class="num">—</td>
+        </tr><tr data-bu="ADSENSE">
+          <td class="muted">26</td>
+          <td><span class="bu-pill" style="background:rgba(139,148,158,0.15);color:#8b949e">ADSENSE</span></td>
+          <td><strong>0</strong></td>
+          <td class="muted" style="font-size:12px">0</td>
+          <td class="muted">0</td>
+          <td><span class="badge b-def">—</span></td>
+          <td>—</td>
+          <td class="num">—</td>
+        </tr><tr data-bu="TOTAL">
+          <td class="muted">27</td>
+          <td><span class="bu-pill" style="background:rgba(139,148,158,0.15);color:#8b949e">TOTAL</span></td>
+          <td><strong>9</strong></td>
+          <td class="muted" style="font-size:12px">32000000</td>
+          <td class="muted">0.7804878048780488</td>
+          <td><span class="badge b-def">—</span></td>
+          <td>—</td>
+          <td class="num">—</td>
+        </tr></tbody>
+          <tfoot><tr><td colspan="7"><strong>Total</strong></td><td class="num" id="g-pipe-total">R$ 41.0M</td></tr></tfoot>
+        </table>
+      </div>
     </div>
   </div>
 
-  <div class="sec-label">Resumo Trimestral</div>
-  <div class="trim-grid">
-    <div class="trim-card">
-      <div class="trim-label">Q1 (Jan–Mar)</div>
-      <div class="trim-val" style="color:#3fb950">R$ 392K</div>
-      <div class="trim-pct" style="color:#3fb950">19262000.0%</div>
-      <div style="font-size:11px;color:#8b949e;margin-top:4px">Meta: R$ 20.0M</div>
-    </div>
-    <div class="trim-card">
-      <div class="trim-label">Q2 (Abr–Jun)</div>
-      <div class="trim-val" style="color:#ffa657">R$ 75K</div>
-      <div class="trim-pct" style="color:#ffa657">48048000.0%</div>
-      <div style="font-size:11px;color:#8b949e;margin-top:4px">Meta: R$ 8.9M</div>
-    </div>
-    <div class="trim-card">
-      <div class="trim-label">Q3 (Jul–Set)</div>
-      <div class="trim-val" style="color:#8b949e">—</div>
-      <div class="trim-pct" style="color:#8b949e">—</div>
-      <div style="font-size:11px;color:#8b949e;margin-top:4px">Meta: R$ 0</div>
-    </div>
-    <div class="trim-card">
-      <div class="trim-label">Q4 (Out–Dez)</div>
-      <div class="trim-val" style="color:#8b949e">—</div>
-      <div class="trim-pct" style="color:#8b949e">—</div>
-      <div style="font-size:11px;color:#8b949e;margin-top:4px">Meta: R$ 0</div>
-    </div></div>
-</div>
-
-<!-- PIPELINE -->
-<div id="pipeline" class="section">
-  <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr)">
-    <div class="kpi blue"><label>Pipe Total</label><div class="val">R$ 41.0M</div><div class="sub">17 oportunidades</div></div>
-    <div class="kpi"><label>Ticket Médio</label><div class="val" style="color:var(--orange)">R$ 2.4M</div></div>
-    <div class="kpi"><label>% da Meta Anual</label><div class="val" style="color:var(--purple)">28.7%</div></div>
-  </div>
-  <div class="card">
-    <h3>Oportunidades em Aberto</h3>
-    <div class="filters" id="pipeFilters">
-      <button class="fbtn active" onclick="filtPipe('todos',this)">Todos (27)</button>
-      <button class="fbtn" onclick="filtPipe('A TRINCA MÍDIA',this)">A Trinca Mídia</button>
-      <button class="fbtn" onclick="filtPipe('PODCAST COM PLATÉIA',this)">Podcast c/ Plateia</button>
-      <button class="fbtn" onclick="filtPipe('SELETO',this)">Seleto</button>
-      <button class="fbtn" onclick="filtPipe('PUBLICIDADE',this)">Publicidade</button>
-    </div>
-    <div class="tbl-wrap">
-      <table class="data">
-        <thead><tr><th>#</th><th>B.U.</th><th>Cliente</th><th>Descrição</th><th>Resp.</th><th>Status</th><th>Prev.</th><th style="text-align:right">Valor</th></tr></thead>
-        <tbody id="pipeTbody">
-      <tr data-bu="A TRINCA MÍDIA">
-        <td class="muted">1</td>
-        <td><span class="bu-pill" style="background:rgba(188,140,255,0.15);color:#bc8cff">A TRINCA MÍDIA</span></td>
-        <td><strong>CARRARO</strong></td>
-        <td class="muted" style="font-size:12px">Em contrato – negociação forma de pgto</td>
-        <td class="muted">EMILY/GRASI</td>
-        <td><span class="badge b-contrato">Em Contrato</span></td>
-        <td>May/2026</td>
-        <td class="num">R$ 6.0M</td>
-      </tr>
-      <tr data-bu="A TRINCA MÍDIA">
-        <td class="muted">2</td>
-        <td><span class="bu-pill" style="background:rgba(188,140,255,0.15);color:#bc8cff">A TRINCA MÍDIA</span></td>
-        <td><strong>ADAPTA</strong></td>
-        <td class="muted" style="font-size:12px">NEGOCIAÇÃO FLÁVIO E JOEL</td>
-        <td class="muted">JOEL</td>
-        <td><span class="badge b-def">—</span></td>
-        <td>—</td>
-        <td class="num">R$ 5.0M</td>
-      </tr>
-      <tr data-bu="PUBLICIDADE">
-        <td class="muted">3</td>
-        <td><span class="bu-pill" style="background:rgba(255,166,87,0.15);color:#ffa657">PUBLICIDADE</span></td>
-        <td><strong>AUDIBLE</strong></td>
-        <td class="muted" style="font-size:12px">PROPOSTA ENVIADA - DEVOLUTIVA EM JUNHO</td>
-        <td class="muted">EMILY</td>
-        <td><span class="badge b-prop">Proposta Enviada</span></td>
-        <td style="color:#f85149">Jun/2026</td>
-        <td class="num">R$ 1.0M</td>
-      </tr>
-      <tr data-bu="A TRINCA MÍDIA">
-        <td class="muted">4</td>
-        <td><span class="bu-pill" style="background:rgba(188,140,255,0.15);color:#bc8cff">A TRINCA MÍDIA</span></td>
-        <td><strong>NEXFIT</strong></td>
-        <td class="muted" style="font-size:12px">A Trinca Mídia</td>
-        <td class="muted">GRASI</td>
-        <td><span class="badge b-prosp">Prospecção</span></td>
-        <td style="color:#f85149">May/2026</td>
-        <td class="num">R$ 5.0M</td>
-      </tr>
-      <tr data-bu="A TRINCA MÍDIA">
-        <td class="muted">5</td>
-        <td><span class="bu-pill" style="background:rgba(188,140,255,0.15);color:#bc8cff">A TRINCA MÍDIA</span></td>
-        <td><strong>KIWIFI</strong></td>
-        <td class="muted" style="font-size:12px">NEGOCIAÇÃO FLÁVIO E JOEL</td>
-        <td class="muted">JOEL</td>
-        <td><span class="badge b-neg">Em Negociação</span></td>
-        <td>—</td>
-        <td class="num">R$ 5.0M</td>
-      </tr>
-      <tr data-bu="A TRINCA MÍDIA">
-        <td class="muted">6</td>
-        <td><span class="bu-pill" style="background:rgba(188,140,255,0.15);color:#bc8cff">A TRINCA MÍDIA</span></td>
-        <td><strong>THE BEST AÇAÍ</strong></td>
-        <td class="muted" style="font-size:12px">Sérgio</td>
-        <td class="muted">EMILY/GRASI</td>
-        <td><span class="badge b-neg">Em Negociação</span></td>
-        <td>Jul/2026</td>
-        <td class="num">R$ 5.0M</td>
-      </tr>
-      <tr data-bu="A TRINCA MÍDIA">
-        <td class="muted">7</td>
-        <td><span class="bu-pill" style="background:rgba(188,140,255,0.15);color:#bc8cff">A TRINCA MÍDIA</span></td>
-        <td><strong>PORMADE</strong></td>
-        <td class="muted" style="font-size:12px">2 podcast caio e joel e mais conselho</td>
-        <td class="muted">EMILY</td>
-        <td><span class="badge b-neg">Em Negociação</span></td>
-        <td>—</td>
-        <td class="num">R$ 2.0M</td>
-      </tr>
-      <tr data-bu="SELETO">
-        <td class="muted">8</td>
-        <td><span class="bu-pill" style="background:rgba(63,185,80,0.15);color:#3fb950">SELETO</span></td>
-        <td><strong>AMBRENNA E VICTOR</strong></td>
-        <td class="muted" style="font-size:12px">FECHAR EM JUNHO</td>
-        <td class="muted">GRASI/EMILY</td>
-        <td><span class="badge b-prop">Proposta Enviada</span></td>
-        <td style="color:#f85149">May/2026</td>
-        <td class="num">R$ 3.0M</td>
-      </tr>
-      <tr data-bu="PODCAST COM PLATÉIA">
-        <td class="muted">9</td>
-        <td><span class="bu-pill" style="background:rgba(88,166,255,0.15);color:#58a6ff">PODCAST COM PLATÉIA</span></td>
-        <td><strong>FLÁVIO GARCIA</strong></td>
-        <td class="muted" style="font-size:12px">—</td>
-        <td class="muted">—</td>
-        <td><span class="badge b-def">—</span></td>
-        <td>Jul/2026</td>
-        <td class="num">R$ 1.0M</td>
-      </tr>
-      <tr data-bu="PODCAST COM PLATÉIA">
-        <td class="muted">10</td>
-        <td><span class="bu-pill" style="background:rgba(88,166,255,0.15);color:#58a6ff">PODCAST COM PLATÉIA</span></td>
-        <td><strong>CAIO SARAIVA</strong></td>
-        <td class="muted" style="font-size:12px">—</td>
-        <td class="muted">—</td>
-        <td><span class="badge b-def">—</span></td>
-        <td>—</td>
-        <td class="num">R$ 1.0M</td>
-      </tr>
-      <tr data-bu="PODCAST COM PLATÉIA">
-        <td class="muted">11</td>
-        <td><span class="bu-pill" style="background:rgba(88,166,255,0.15);color:#58a6ff">PODCAST COM PLATÉIA</span></td>
-        <td><strong>VICTOR - MLS</strong></td>
-        <td class="muted" style="font-size:12px">—</td>
-        <td class="muted">—</td>
-        <td><span class="badge b-def">—</span></td>
-        <td style="color:#f85149">Jun/2026</td>
-        <td class="num">R$ 1.0M</td>
-      </tr>
-      <tr data-bu="PODCAST COM PLATÉIA">
-        <td class="muted">12</td>
-        <td><span class="bu-pill" style="background:rgba(88,166,255,0.15);color:#58a6ff">PODCAST COM PLATÉIA</span></td>
-        <td><strong>MARCELO CRUZ</strong></td>
-        <td class="muted" style="font-size:12px">—</td>
-        <td class="muted">—</td>
-        <td><span class="badge b-def">—</span></td>
-        <td>—</td>
-        <td class="num">R$ 1.0M</td>
-      </tr>
-      <tr data-bu="PODCAST COM PLATÉIA">
-        <td class="muted">13</td>
-        <td><span class="bu-pill" style="background:rgba(88,166,255,0.15);color:#58a6ff">PODCAST COM PLATÉIA</span></td>
-        <td><strong>GABRIEL LONGUINI</strong></td>
-        <td class="muted" style="font-size:12px">—</td>
-        <td class="muted">EMILY</td>
-        <td><span class="badge b-def">—</span></td>
-        <td style="color:#f85149">Jun/2026</td>
-        <td class="num">R$ 1.0M</td>
-      </tr>
-      <tr data-bu="PODCAST COM PLATÉIA">
-        <td class="muted">14</td>
-        <td><span class="bu-pill" style="background:rgba(88,166,255,0.15);color:#58a6ff">PODCAST COM PLATÉIA</span></td>
-        <td><strong>THIAGO MANCUSSI</strong></td>
-        <td class="muted" style="font-size:12px">—</td>
-        <td class="muted">EMILY/GRASI</td>
-        <td><span class="badge b-def">—</span></td>
-        <td>Aug/2026</td>
-        <td class="num">R$ 1.0M</td>
-      </tr>
-      <tr data-bu="PODCAST COM PLATÉIA">
-        <td class="muted">15</td>
-        <td><span class="bu-pill" style="background:rgba(88,166,255,0.15);color:#58a6ff">PODCAST COM PLATÉIA</span></td>
-        <td><strong>LOFTY</strong></td>
-        <td class="muted" style="font-size:12px">—</td>
-        <td class="muted">—</td>
-        <td><span class="badge b-def">—</span></td>
-        <td>—</td>
-        <td class="num">R$ 1.0M</td>
-      </tr>
-      <tr data-bu="A TRINCA MÍDIA">
-        <td class="muted">16</td>
-        <td><span class="bu-pill" style="background:rgba(188,140,255,0.15);color:#bc8cff">A TRINCA MÍDIA</span></td>
-        <td><strong>AMARO</strong></td>
-        <td class="muted" style="font-size:12px">HORAS VOO</td>
-        <td class="muted">—</td>
-        <td><span class="badge b-def">—</span></td>
-        <td>—</td>
-        <td class="num">R$ 0</td>
-      </tr>
-      <tr data-bu="PODCAST COM PLATÉIA">
-        <td class="muted">17</td>
-        <td><span class="bu-pill" style="background:rgba(88,166,255,0.15);color:#58a6ff">PODCAST COM PLATÉIA</span></td>
-        <td><strong>DR CARLOS</strong></td>
-        <td class="muted" style="font-size:12px">FECHAR EM JUNHO</td>
-        <td class="muted">EMILY/GRASI</td>
-        <td><span class="badge b-def">—</span></td>
-        <td>Aug/2026</td>
-        <td class="num">R$ 1.0M</td>
-      </tr>
-      <tr data-bu="PODCAST COM PLATÉIA">
-        <td class="muted">18</td>
-        <td><span class="bu-pill" style="background:rgba(88,166,255,0.15);color:#58a6ff">PODCAST COM PLATÉIA</span></td>
-        <td><strong>NORMA</strong></td>
-        <td class="muted" style="font-size:12px">FECHAR EM JUNHO</td>
-        <td class="muted">—</td>
-        <td><span class="badge b-def">—</span></td>
-        <td>—</td>
-        <td class="num">R$ 1.0M</td>
-      </tr>
-      <tr data-bu="PUBLICIDADE">
-        <td class="muted">19</td>
-        <td><span class="bu-pill" style="background:rgba(255,166,87,0.15);color:#ffa657">PUBLICIDADE</span></td>
-        <td><strong>1</strong></td>
-        <td class="muted" style="font-size:12px">1000000</td>
-        <td class="muted">0.024390243902439025</td>
-        <td><span class="badge b-def">—</span></td>
-        <td>—</td>
-        <td class="num">R$ 0</td>
-      </tr>
-      <tr data-bu="ADVISORY">
-        <td class="muted">20</td>
-        <td><span class="bu-pill" style="background:rgba(248,81,73,0.15);color:#f85149">ADVISORY</span></td>
-        <td><strong>0</strong></td>
-        <td class="muted" style="font-size:12px">0</td>
-        <td class="muted">0</td>
-        <td><span class="badge b-def">—</span></td>
-        <td>—</td>
-        <td class="num">R$ 0</td>
-      </tr>
-      <tr data-bu="A TRINCA MÍDIA">
-        <td class="muted">21</td>
-        <td><span class="bu-pill" style="background:rgba(188,140,255,0.15);color:#bc8cff">A TRINCA MÍDIA</span></td>
-        <td><strong>7</strong></td>
-        <td class="muted" style="font-size:12px">28000000</td>
-        <td class="muted">0.6829268292682927</td>
-        <td><span class="badge b-def">—</span></td>
-        <td>—</td>
-        <td class="num">R$ 0</td>
-      </tr>
-      <tr data-bu="SELETO">
-        <td class="muted">22</td>
-        <td><span class="bu-pill" style="background:rgba(63,185,80,0.15);color:#3fb950">SELETO</span></td>
-        <td><strong>1</strong></td>
-        <td class="muted" style="font-size:12px">3000000</td>
-        <td class="muted">0.07317073170731707</td>
-        <td><span class="badge b-def">—</span></td>
-        <td>—</td>
-        <td class="num">R$ 0</td>
-      </tr>
-      <tr data-bu="JOTA EDITION">
-        <td class="muted">23</td>
-        <td><span class="bu-pill" style="background:rgba(210,153,34,0.15);color:#d29922">JOTA EDITION</span></td>
-        <td><strong>0</strong></td>
-        <td class="muted" style="font-size:12px">0</td>
-        <td class="muted">0</td>
-        <td><span class="badge b-def">—</span></td>
-        <td>—</td>
-        <td class="num">R$ 0</td>
-      </tr>
-      <tr data-bu="PALESTRAS">
-        <td class="muted">24</td>
-        <td><span class="bu-pill" style="background:rgba(188,140,255,0.15);color:#bc8cff">PALESTRAS</span></td>
-        <td><strong>0</strong></td>
-        <td class="muted" style="font-size:12px">0</td>
-        <td class="muted">0</td>
-        <td><span class="badge b-def">—</span></td>
-        <td>—</td>
-        <td class="num">R$ 0</td>
-      </tr>
-      <tr data-bu="JOTA LAB">
-        <td class="muted">25</td>
-        <td><span class="bu-pill" style="background:rgba(57,211,83,0.15);color:#39d353">JOTA LAB</span></td>
-        <td><strong>0</strong></td>
-        <td class="muted" style="font-size:12px">0</td>
-        <td class="muted">0</td>
-        <td><span class="badge b-def">—</span></td>
-        <td>—</td>
-        <td class="num">R$ 0</td>
-      </tr>
-      <tr data-bu="ADSENSE">
-        <td class="muted">26</td>
-        <td><span class="bu-pill" style="background:rgba(139,148,158,0.15);color:#8b949e">ADSENSE</span></td>
-        <td><strong>0</strong></td>
-        <td class="muted" style="font-size:12px">0</td>
-        <td class="muted">0</td>
-        <td><span class="badge b-def">—</span></td>
-        <td>—</td>
-        <td class="num">R$ 0</td>
-      </tr>
-      <tr data-bu="TOTAL">
-        <td class="muted">27</td>
-        <td><span class="bu-pill" style="background:rgba(139,148,158,0.15);color:#8b949e">TOTAL</span></td>
-        <td><strong>9</strong></td>
-        <td class="muted" style="font-size:12px">32000000</td>
-        <td class="muted">0.7804878048780488</td>
-        <td><span class="badge b-def">—</span></td>
-        <td>—</td>
-        <td class="num">R$ 0</td>
-      </tr></tbody>
-        <tfoot><tr><td colspan="7"><strong>Total</strong></td><td class="num" id="pipeTotal">R$ 41,000,000".replace(",",".")"</td></tr></tfoot>
-      </table>
-    </div>
-  </div>
-</div>
-
-<!-- METAS BU -->
-<div id="metas" class="section">
-  <div class="card">
-    <h3>Atingimento por Business Unit — 2026</h3>
-    <div class="tbl-wrap">
-      <table class="data">
-        <thead><tr><th>B.U.</th><th style="text-align:right">Meta Anual</th><th style="text-align:right">Vendido</th><th style="text-align:right">Pipe</th><th>% Meta</th><th style="text-align:right">GAP</th></tr></thead>
-        <tbody>
-      <tr>
-        <td>PALESTRAS</td>
-        <td class="num">R$ 1.8M</td>
-        <td class="num" style="color:#3fb950">R$ 5K</td>
-        <td class="num">R$ 980K</td>
-        <td>
-          <div style="display:flex;align-items:center;gap:8px">
+  <!-- METAS GERAL -->
+  <div id="g-metas" class="section">
+    <div class="card">
+      <h3>Atingimento por Business Unit — 2026 (Geral)</h3>
+      <div class="tbl-wrap">
+        <table class="data">
+          <thead><tr><th>B.U.</th><th style="text-align:right">Meta Anual</th><th style="text-align:right">Vendido</th><th style="text-align:right">Pipe</th><th>Progresso</th><th style="text-align:right">GAP</th></tr></thead>
+          <tbody><tr>
+          <td>PALESTRAS</td>
+          <td class="num">R$ 1.8M</td>
+          <td class="num" style="color:#3fb950">R$ 5K</td>
+          <td class="num">R$ 980K</td>
+          <td><div style="display:flex;align-items:center;gap:8px">
             <div style="flex:1;height:7px;background:#30363d;border-radius:99px;overflow:hidden">
               <div style="width:100.0%;height:100%;background:#d29922;border-radius:99px"></div>
             </div>
-            <span style="font-size:12px;font-weight:600;color:#d29922;width:42px;text-align:right">415000.0%</span>
-          </div>
-        </td>
-        <td class="num" style='color:#3fb950'>+R$ 0</td>
-      </tr>
-      <tr>
-        <td>PUBLICIDADE</td>
-        <td class="num">R$ 40.9M</td>
-        <td class="num" style="color:#3fb950">R$ 112K</td>
-        <td class="num">R$ 35.3M</td>
-        <td>
-          <div style="display:flex;align-items:center;gap:8px">
+            <span style="font-size:12px;font-weight:600;color:#d29922;width:44px;text-align:right">415000.0%</span>
+          </div></td>
+          <td class="num" style="color:#f85149">R$ -0</td>
+        </tr><tr>
+          <td>PUBLICIDADE</td>
+          <td class="num">R$ 40.9M</td>
+          <td class="num" style="color:#3fb950">R$ 112K</td>
+          <td class="num">R$ 35.3M</td>
+          <td><div style="display:flex;align-items:center;gap:8px">
             <div style="flex:1;height:7px;background:#30363d;border-radius:99px;overflow:hidden">
               <div style="width:100.0%;height:100%;background:#ffa657;border-radius:99px"></div>
             </div>
-            <span style="font-size:12px;font-weight:600;color:#ffa657;width:42px;text-align:right">930191.4%</span>
-          </div>
-        </td>
-        <td class="num" style='color:#3fb950'>+R$ 0</td>
-      </tr>
-      <tr>
-        <td>JOTA LAB</td>
-        <td class="num">R$ 5.8M</td>
-        <td class="num" style="color:#3fb950">R$ 16K</td>
-        <td class="num">R$ 4.0M</td>
-        <td>
-          <div style="display:flex;align-items:center;gap:8px">
+            <span style="font-size:12px;font-weight:600;color:#ffa657;width:44px;text-align:right">930191.4%</span>
+          </div></td>
+          <td class="num" style="color:#f85149">R$ -0</td>
+        </tr><tr>
+          <td>JOTA LAB</td>
+          <td class="num">R$ 5.8M</td>
+          <td class="num" style="color:#3fb950">R$ 16K</td>
+          <td class="num">R$ 4.0M</td>
+          <td><div style="display:flex;align-items:center;gap:8px">
             <div style="flex:1;height:7px;background:#30363d;border-radius:99px;overflow:hidden">
               <div style="width:100.0%;height:100%;background:#3fb950;border-radius:99px"></div>
             </div>
-            <span style="font-size:12px;font-weight:600;color:#3fb950;width:42px;text-align:right">39368.2%</span>
-          </div>
-        </td>
-        <td class="num" style='color:#3fb950'>+R$ 0</td>
-      </tr>
-      <tr>
-        <td>JOTA EDITION</td>
-        <td class="num">R$ 1.8M</td>
-        <td class="num" style="color:#3fb950">R$ 5K</td>
-        <td class="num">R$ 813K</td>
-        <td>
-          <div style="display:flex;align-items:center;gap:8px">
+            <span style="font-size:12px;font-weight:600;color:#3fb950;width:44px;text-align:right">39368.2%</span>
+          </div></td>
+          <td class="num" style="color:#f85149">R$ -0</td>
+        </tr><tr>
+          <td>JOTA EDITION</td>
+          <td class="num">R$ 1.8M</td>
+          <td class="num" style="color:#3fb950">R$ 5K</td>
+          <td class="num">R$ 813K</td>
+          <td><div style="display:flex;align-items:center;gap:8px">
             <div style="flex:1;height:7px;background:#30363d;border-radius:99px;overflow:hidden">
               <div style="width:100.0%;height:100%;background:#39d353;border-radius:99px"></div>
             </div>
-            <span style="font-size:12px;font-weight:600;color:#39d353;width:42px;text-align:right">44075.9%</span>
-          </div>
-        </td>
-        <td class="num" style='color:#3fb950'>+R$ 1</td>
-      </tr>
-      <tr>
-        <td>ADVISORY</td>
-        <td class="num">R$ 8.8M</td>
-        <td class="num" style="color:#3fb950">R$ 24K</td>
-        <td class="num">R$ -1.6M</td>
-        <td>
-          <div style="display:flex;align-items:center;gap:8px">
+            <span style="font-size:12px;font-weight:600;color:#39d353;width:44px;text-align:right">44075.9%</span>
+          </div></td>
+          <td class="num" style="color:#f85149">R$ -1</td>
+        </tr><tr>
+          <td>ADVISORY</td>
+          <td class="num">R$ 8.8M</td>
+          <td class="num" style="color:#3fb950">R$ 24K</td>
+          <td class="num">R$ -1.6M</td>
+          <td><div style="display:flex;align-items:center;gap:8px">
             <div style="flex:1;height:7px;background:#30363d;border-radius:99px;overflow:hidden">
               <div style="width:100.0%;height:100%;background:#bc8cff;border-radius:99px"></div>
             </div>
-            <span style="font-size:12px;font-weight:600;color:#bc8cff;width:42px;text-align:right">1144444.4%</span>
-          </div>
-        </td>
-        <td class="num" style='color:#3fb950'>+R$ 1</td>
-      </tr>
-      <tr>
-        <td>A TRINCA MÍDIA</td>
-        <td class="num">R$ 65.0M</td>
-        <td class="num" style="color:#3fb950">R$ 178K</td>
-        <td class="num">R$ 65.0M</td>
-        <td>
-          <div style="display:flex;align-items:center;gap:8px">
+            <span style="font-size:12px;font-weight:600;color:#bc8cff;width:44px;text-align:right">1144444.4%</span>
+          </div></td>
+          <td class="num" style="color:#f85149">R$ -1</td>
+        </tr><tr>
+          <td>A TRINCA MÍDIA</td>
+          <td class="num">R$ 65.0M</td>
+          <td class="num" style="color:#3fb950">R$ 178K</td>
+          <td class="num">R$ 65.0M</td>
+          <td><div style="display:flex;align-items:center;gap:8px">
             <div style="flex:1;height:7px;background:#30363d;border-radius:99px;overflow:hidden">
               <div style="width:0.0%;height:100%;background:#f85149;border-radius:99px"></div>
             </div>
-            <span style="font-size:12px;font-weight:600;color:#f85149;width:42px;text-align:right">0.0%</span>
-          </div>
-        </td>
-        <td class="num" style='color:#f85149'>R$ 0</td>
-      </tr>
-      <tr>
-        <td>SELETO</td>
-        <td class="num">R$ 18.0M</td>
-        <td class="num" style="color:#3fb950">R$ 49K</td>
-        <td class="num">R$ 9.0M</td>
-        <td>
-          <div style="display:flex;align-items:center;gap:8px">
+            <span style="font-size:12px;font-weight:600;color:#f85149;width:44px;text-align:right">0.0%</span>
+          </div></td>
+          <td class="num" style="color:#3fb950">—</td>
+        </tr><tr>
+          <td>SELETO</td>
+          <td class="num">R$ 18.0M</td>
+          <td class="num" style="color:#3fb950">R$ 49K</td>
+          <td class="num">R$ 9.0M</td>
+          <td><div style="display:flex;align-items:center;gap:8px">
             <div style="flex:1;height:7px;background:#30363d;border-radius:99px;overflow:hidden">
               <div style="width:100.0%;height:100%;background:#58a6ff;border-radius:99px"></div>
             </div>
-            <span style="font-size:12px;font-weight:600;color:#58a6ff;width:42px;text-align:right">3000000.0%</span>
-          </div>
-        </td>
-        <td class="num" style='color:#3fb950'>+R$ 0</td>
-      </tr>
-      <tr>
-        <td>ADSENSE</td>
-        <td class="num">R$ 657K</td>
-        <td class="num" style="color:#3fb950">R$ 2K</td>
-        <td class="num">R$ 190K</td>
-        <td>
-          <div style="display:flex;align-items:center;gap:8px">
+            <span style="font-size:12px;font-weight:600;color:#58a6ff;width:44px;text-align:right">3000000.0%</span>
+          </div></td>
+          <td class="num" style="color:#f85149">R$ -0</td>
+        </tr><tr>
+          <td>ADSENSE</td>
+          <td class="num">R$ 657K</td>
+          <td class="num" style="color:#3fb950">R$ 2K</td>
+          <td class="num">R$ 190K</td>
+          <td><div style="display:flex;align-items:center;gap:8px">
             <div style="flex:1;height:7px;background:#30363d;border-radius:99px;overflow:hidden">
               <div style="width:100.0%;height:100%;background:#8b949e;border-radius:99px"></div>
             </div>
-            <span style="font-size:12px;font-weight:600;color:#8b949e;width:42px;text-align:right">116644.9%</span>
-          </div>
-        </td>
-        <td class="num" style='color:#3fb950'>+R$ 1</td>
-      </tr></tbody>
-        <tfoot>
-          <tr>
+            <span style="font-size:12px;font-weight:600;color:#8b949e;width:44px;text-align:right">116644.9%</span>
+          </div></td>
+          <td class="num" style="color:#f85149">R$ -1</td>
+        </tr></tbody>
+          <tfoot><tr>
             <td>TOTAL GERAL</td>
             <td class="num">R$ 142.6M</td>
             <td class="num" style="color:#3fb950">R$ 391K</td>
             <td class="num">R$ 113.8M</td>
-            <td><span style="font-size:13px;font-weight:700;color:#d29922">0.3%</span></td>
+            <td><span style="font-size:13px;font-weight:700;color:#d29922">32088441.6%</span></td>
             <td class="num" style="color:#f85149">R$ 0</td>
-          </tr>
-        </tfoot>
-      </table>
+          </tr></tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- MENSAL GERAL -->
+  <div id="g-mensal" class="section">
+    <div class="card">
+      <h3>Evolução Mensal — Geral</h3>
+      <div class="tbl-wrap">
+        <table class="data">
+          <thead><tr><th>Mês</th><th style="text-align:right">Realizado</th><th style="text-align:right">Meta</th><th style="text-align:right">% Meta</th><th style="text-align:right">Acumulado</th></tr></thead>
+          <tbody><tr>
+              <td><strong>Janeiro</strong></td>
+              <td class="num" style="color:#3fb950">R$ 125K</td>
+              <td class="num muted">R$ 4.9M</td>
+              <td class="num"><span style="color:#3fb950">4165000.0%</span></td>
+              <td class="num">R$ 1</td>
+            </tr><tr>
+              <td><strong>Fevereiro</strong></td>
+              <td class="num" style="color:#3fb950">R$ 65K</td>
+              <td class="num muted">R$ 4.9M</td>
+              <td class="num"><span style="color:#3fb950">4175000.0%</span></td>
+              <td class="num">R$ 1</td>
+            </tr><tr>
+              <td><strong>Março</strong></td>
+              <td class="num" style="color:#3fb950">R$ 202K</td>
+              <td class="num muted">R$ 10.2M</td>
+              <td class="num"><span style="color:#3fb950">10922000.0%</span></td>
+              <td class="num">R$ 1</td>
+            </tr><tr>
+              <td><strong>Abril</strong></td>
+              <td class="num" style="color:#3fb950">R$ 75K</td>
+              <td class="num muted">R$ 1.7M</td>
+              <td class="num"><span style="color:#3fb950">22935000.0%</span></td>
+              <td class="num">R$ 0</td>
+            </tr><tr style="opacity:0.4">
+              <td><strong>Maio</strong></td>
+              <td class="num muted">—</td>
+              <td class="num muted">R$ 7.2M</td>
+              <td class="num muted">—</td>
+              <td class="num muted">R$ 0</td>
+            </tr><tr>
+              <td><strong>Junho</strong></td>
+              <td class="num" style="color:#3fb950">—</td>
+              <td class="num muted">—</td>
+              <td class="num"><span style="color:#3fb950">10555000.0%</span></td>
+              <td class="num">—</td>
+            </tr><tr>
+              <td><strong>Julho</strong></td>
+              <td class="num" style="color:#3fb950">—</td>
+              <td class="num muted">—</td>
+              <td class="num"><span style="color:#3fb950">11555000.0%</span></td>
+              <td class="num">—</td>
+            </tr><tr>
+              <td><strong>Agosto</strong></td>
+              <td class="num" style="color:#3fb950">—</td>
+              <td class="num muted">—</td>
+              <td class="num"><span style="color:#3fb950">14555000.0%</span></td>
+              <td class="num">—</td>
+            </tr><tr>
+              <td><strong>Setembro</strong></td>
+              <td class="num" style="color:#3fb950">—</td>
+              <td class="num muted">—</td>
+              <td class="num"><span style="color:#3fb950">14555000.0%</span></td>
+              <td class="num">—</td>
+            </tr><tr>
+              <td><strong>Outubro</strong></td>
+              <td class="num" style="color:#3fb950">—</td>
+              <td class="num muted">—</td>
+              <td class="num"><span style="color:#3fb950">12555000.0%</span></td>
+              <td class="num">—</td>
+            </tr><tr>
+              <td><strong>Novembro</strong></td>
+              <td class="num" style="color:#3fb950">—</td>
+              <td class="num muted">—</td>
+              <td class="num"><span style="color:#3fb950">9555000.0%</span></td>
+              <td class="num">—</td>
+            </tr><tr>
+              <td><strong>Dezembro</strong></td>
+              <td class="num" style="color:#3fb950">—</td>
+              <td class="num muted">—</td>
+              <td class="num"><span style="color:#3fb950">12555000.0%</span></td>
+              <td class="num">—</td>
+            </tr></tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- MENSAL -->
-<div id="mensal" class="section">
-  <div class="card">
-    <h3>Evolução Mensal — Vendas vs Meta</h3>
-    <div class="tbl-wrap">
-      <table class="data">
-        <thead><tr><th>Mês</th><th style="text-align:right">Realizado</th><th style="text-align:right">Meta</th><th style="text-align:right">% Meta</th><th style="text-align:right">Acumulado</th></tr></thead>
-        <tbody>
-      <tr>
-        <td><strong>Janeiro</strong></td>
-        <td class="num" style="color:#3fb950">R$ 125K</td>
-        <td class="num muted">R$ 4.9M</td>
-        <td class="num"><span class="ok">4165000.0%</span></td>
-        <td class="num">R$ 1</td>
-      </tr>
-      <tr>
-        <td><strong>Fevereiro</strong></td>
-        <td class="num" style="color:#3fb950">R$ 65K</td>
-        <td class="num muted">R$ 4.9M</td>
-        <td class="num"><span class="ok">4175000.0%</span></td>
-        <td class="num">R$ 1</td>
-      </tr>
-      <tr>
-        <td><strong>Março</strong></td>
-        <td class="num" style="color:#3fb950">R$ 202K</td>
-        <td class="num muted">R$ 10.2M</td>
-        <td class="num"><span class="ok">10922000.0%</span></td>
-        <td class="num">R$ 1</td>
-      </tr>
-      <tr>
-        <td><strong>Abril</strong></td>
-        <td class="num" style="color:#3fb950">R$ 75K</td>
-        <td class="num muted">R$ 1.7M</td>
-        <td class="num"><span class="ok">22935000.0%</span></td>
-        <td class="num">R$ 0</td>
-      </tr>
-      <tr style="opacity:0.4">
-        <td><strong>Maio</strong></td>
-        <td class="num muted">—</td>
-        <td class="num muted">R$ 7.2M</td>
-        <td class="num muted">—</td>
-        <td class="num muted">R$ 0</td>
-      </tr>
-      <tr>
-        <td><strong>Junho</strong></td>
-        <td class="num" style="color:#3fb950">R$ 0</td>
-        <td class="num muted">R$ 0</td>
-        <td class="num"><span class="ok">10555000.0%</span></td>
-        <td class="num">R$ 0</td>
-      </tr>
-      <tr>
-        <td><strong>Julho</strong></td>
-        <td class="num" style="color:#3fb950">R$ 0</td>
-        <td class="num muted">R$ 0</td>
-        <td class="num"><span class="ok">11555000.0%</span></td>
-        <td class="num">R$ 0</td>
-      </tr>
-      <tr>
-        <td><strong>Agosto</strong></td>
-        <td class="num" style="color:#3fb950">R$ 0</td>
-        <td class="num muted">R$ 0</td>
-        <td class="num"><span class="ok">14555000.0%</span></td>
-        <td class="num">R$ 0</td>
-      </tr>
-      <tr>
-        <td><strong>Setembro</strong></td>
-        <td class="num" style="color:#3fb950">R$ 0</td>
-        <td class="num muted">R$ 0</td>
-        <td class="num"><span class="ok">14555000.0%</span></td>
-        <td class="num">R$ 0</td>
-      </tr>
-      <tr>
-        <td><strong>Outubro</strong></td>
-        <td class="num" style="color:#3fb950">R$ 0</td>
-        <td class="num muted">R$ 0</td>
-        <td class="num"><span class="ok">12555000.0%</span></td>
-        <td class="num">R$ 0</td>
-      </tr>
-      <tr>
-        <td><strong>Novembro</strong></td>
-        <td class="num" style="color:#3fb950">R$ 0</td>
-        <td class="num muted">R$ 0</td>
-        <td class="num"><span class="ok">9555000.0%</span></td>
-        <td class="num">R$ 0</td>
-      </tr>
-      <tr>
-        <td><strong>Dezembro</strong></td>
-        <td class="num" style="color:#3fb950">R$ 0</td>
-        <td class="num muted">R$ 0</td>
-        <td class="num"><span class="ok">12555000.0%</span></td>
-        <td class="num">R$ 0</td>
-      </tr></tbody>
-      </table>
+<div id="pg-jotaco" class="page" style="display:none">
+  <div class="tabs">
+    <button class="tab active" onclick="goTab('jc-overview',this,'jc')">Visão Geral</button>
+    <button class="tab" onclick="goTab('jc-pipe',this,'jc')">Pipeline</button>
+    <button class="tab" onclick="goTab('jc-metas',this,'jc')">Metas por B.U.</button>
+    <button class="tab" onclick="goTab('jc-mensal',this,'jc')">Mensal</button>
+    <button class="tab" onclick="goTab('jc-comp',this,'jc')">2025 vs 2026</button>
+  </div>
+
+  <!-- OVERVIEW JC -->
+  <div id="jc-overview" class="section active">
+    
+  <div class="kpi-grid">
+    <div class="kpi green"><label>Vendas Realizadas</label>
+      <div class="val">R$ 163K</div>
+      <div class="sub">0.3% da meta anual</div></div>
+    <div class="kpi blue"><label>Pipe Ativo</label>
+      <div class="val">R$ 41.0M</div>
+      <div class="sub">17 oportunidades</div></div>
+    <div class="kpi purple"><label>Realizado + Pipe</label>
+      <div class="val">R$ 41.2M</div>
+      <div class="sub">69.0% da meta anual</div></div>
+    <div class="kpi yellow"><label>Meta Anual</label>
+      <div class="val">R$ 59.6M</div>
+      <div class="sub">GAP: R$ 0</div></div>
+  </div>
+  <div class="card" style="margin-bottom:20px">
+    <h3>Progresso Anual</h3>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <span style="font-size:13px;color:var(--muted)">R$ 163K de R$ 59.6M</span>
+      <span style="font-size:20px;font-weight:700;color:var(--yellow)">0.3%</span>
+    </div>
+    <div style="height:12px;background:var(--border);border-radius:99px;overflow:hidden;margin-bottom:8px">
+      <div style="width:0.3%;height:100%;background:linear-gradient(90deg,#3fb950,#58a6ff);border-radius:99px"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:10px">
+      <span>Jan</span><span>Fev</span><span>Mar</span><span>Abr</span><span>Mai</span><span>Jun</span><span>Jul</span><span>Ago</span><span>Set</span><span>Out</span><span>Nov</span><span>Dez</span>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <div style="flex:1;height:6px;background:var(--border);border-radius:99px;overflow:hidden">
+        <div style="width:69.0%;height:100%;background:rgba(88,166,255,.45);border-radius:99px"></div>
+      </div>
+      <span style="font-size:12px;color:var(--accent);white-space:nowrap">Realizado + Pipe: 69.0%</span>
+    </div>
+  </div>
+    <div class="sec-label">Resumo Trimestral</div>
+    <div class="trim-grid"><div class="trim-card">
+          <div class="trim-label">Q1 (Jan–Mar)</div>
+          <div class="trim-val" style="color:#3fb950">R$ 13.3M</div>
+          <div class="trim-pct" style="color:#3fb950">0.0%</div>
+          <div style="font-size:11px;color:#8b949e;margin-top:4px">Meta: R$ 1</div>
+        </div><div class="trim-card">
+          <div class="trim-label">Q2 (Abr–Jun)</div>
+          <div class="trim-val" style="color:#ffa657">R$ 16.0M</div>
+          <div class="trim-pct" style="color:#ffa657">0.0%</div>
+          <div style="font-size:11px;color:#8b949e;margin-top:4px">Meta: R$ 0</div>
+        </div><div class="trim-card">
+          <div class="trim-label">Q3 (Jul–Set)</div>
+          <div class="trim-val" style="color:#8b949e">R$ 13.7M</div>
+          <div class="trim-pct" style="color:#8b949e">0.0%</div>
+          <div style="font-size:11px;color:#8b949e;margin-top:4px">Meta: —</div>
+        </div><div class="trim-card">
+          <div class="trim-label">Q4 (Out–Dez)</div>
+          <div class="trim-val" style="color:#8b949e">R$ 16.7M</div>
+          <div class="trim-pct" style="color:#8b949e">0.0%</div>
+          <div style="font-size:11px;color:#8b949e;margin-top:4px">Meta: —</div>
+        </div></div>
+  </div>
+
+  <!-- PIPELINE JC -->
+  <div id="jc-pipe" class="section">
+    <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr)">
+      <div class="kpi blue"><label>Pipe Jota Co</label>
+        <div class="val">R$ 10.0M</div>
+        <div class="sub">16 oportunidades</div></div>
+      <div class="kpi"><label>Meta Anual Jota Co</label>
+        <div class="val" style="color:var(--yellow)">R$ 59.6M</div></div>
+      <div class="kpi"><label>Atingimento</label>
+        <div class="val" style="color:var(--purple)">22850112.0%</div></div>
+    </div>
+    <div class="card">
+      <h3>Oportunidades Jota Co (16)</h3>
+      <div class="filters">
+        <button class="fbtn active" onclick="filtPipe('jc-pipe-tbody','jc-pipe-total','todos',this)">Todos</button>
+        <button class="fbtn" onclick="filtPipe('jc-pipe-tbody','jc-pipe-total','PUBLICIDADE',this)">Publicidade</button>
+        <button class="fbtn" onclick="filtPipe('jc-pipe-tbody','jc-pipe-total','PODCAST COM PLATÉIA',this)">Podcast c/ Plateia</button>
+        <button class="fbtn" onclick="filtPipe('jc-pipe-tbody','jc-pipe-total','ADVISORY',this)">Advisory</button>
+      </div>
+      <div class="tbl-wrap">
+        <table class="data">
+          <thead><tr><th>#</th><th>B.U.</th><th>Cliente</th><th>Descrição</th><th>Resp.</th><th>Status</th><th>Prev.</th><th style="text-align:right">Valor</th></tr></thead>
+          <tbody id="jc-pipe-tbody"><tr data-bu="PUBLICIDADE">
+          <td class="muted">1</td>
+          <td><span class="bu-pill" style="background:rgba(255,166,87,0.15);color:#ffa657">PUBLICIDADE</span></td>
+          <td><strong>AUDIBLE</strong></td>
+          <td class="muted" style="font-size:12px">PROPOSTA ENVIADA - DEVOLUTIVA EM JUNHO</td>
+          <td class="muted">EMILY</td>
+          <td><span class="badge b-prop">Proposta Enviada</span></td>
+          <td style="color:#f85149">Jun/2026</td>
+          <td class="num">R$ 1.0M</td>
+        </tr><tr data-bu="PODCAST COM PLATÉIA">
+          <td class="muted">2</td>
+          <td><span class="bu-pill" style="background:rgba(88,166,255,0.15);color:#58a6ff">PODCAST COM PLATÉIA</span></td>
+          <td><strong>FLÁVIO GARCIA</strong></td>
+          <td class="muted" style="font-size:12px">—</td>
+          <td class="muted">—</td>
+          <td><span class="badge b-def">—</span></td>
+          <td>Jul/2026</td>
+          <td class="num">R$ 1.0M</td>
+        </tr><tr data-bu="PODCAST COM PLATÉIA">
+          <td class="muted">3</td>
+          <td><span class="bu-pill" style="background:rgba(88,166,255,0.15);color:#58a6ff">PODCAST COM PLATÉIA</span></td>
+          <td><strong>CAIO SARAIVA</strong></td>
+          <td class="muted" style="font-size:12px">—</td>
+          <td class="muted">—</td>
+          <td><span class="badge b-def">—</span></td>
+          <td>—</td>
+          <td class="num">R$ 1.0M</td>
+        </tr><tr data-bu="PODCAST COM PLATÉIA">
+          <td class="muted">4</td>
+          <td><span class="bu-pill" style="background:rgba(88,166,255,0.15);color:#58a6ff">PODCAST COM PLATÉIA</span></td>
+          <td><strong>VICTOR - MLS</strong></td>
+          <td class="muted" style="font-size:12px">—</td>
+          <td class="muted">—</td>
+          <td><span class="badge b-def">—</span></td>
+          <td style="color:#f85149">Jun/2026</td>
+          <td class="num">R$ 1.0M</td>
+        </tr><tr data-bu="PODCAST COM PLATÉIA">
+          <td class="muted">5</td>
+          <td><span class="bu-pill" style="background:rgba(88,166,255,0.15);color:#58a6ff">PODCAST COM PLATÉIA</span></td>
+          <td><strong>MARCELO CRUZ</strong></td>
+          <td class="muted" style="font-size:12px">—</td>
+          <td class="muted">—</td>
+          <td><span class="badge b-def">—</span></td>
+          <td>—</td>
+          <td class="num">R$ 1.0M</td>
+        </tr><tr data-bu="PODCAST COM PLATÉIA">
+          <td class="muted">6</td>
+          <td><span class="bu-pill" style="background:rgba(88,166,255,0.15);color:#58a6ff">PODCAST COM PLATÉIA</span></td>
+          <td><strong>GABRIEL LONGUINI</strong></td>
+          <td class="muted" style="font-size:12px">—</td>
+          <td class="muted">EMILY</td>
+          <td><span class="badge b-def">—</span></td>
+          <td style="color:#f85149">Jun/2026</td>
+          <td class="num">R$ 1.0M</td>
+        </tr><tr data-bu="PODCAST COM PLATÉIA">
+          <td class="muted">7</td>
+          <td><span class="bu-pill" style="background:rgba(88,166,255,0.15);color:#58a6ff">PODCAST COM PLATÉIA</span></td>
+          <td><strong>THIAGO MANCUSSI</strong></td>
+          <td class="muted" style="font-size:12px">—</td>
+          <td class="muted">EMILY/GRASI</td>
+          <td><span class="badge b-def">—</span></td>
+          <td>Aug/2026</td>
+          <td class="num">R$ 1.0M</td>
+        </tr><tr data-bu="PODCAST COM PLATÉIA">
+          <td class="muted">8</td>
+          <td><span class="bu-pill" style="background:rgba(88,166,255,0.15);color:#58a6ff">PODCAST COM PLATÉIA</span></td>
+          <td><strong>LOFTY</strong></td>
+          <td class="muted" style="font-size:12px">—</td>
+          <td class="muted">—</td>
+          <td><span class="badge b-def">—</span></td>
+          <td>—</td>
+          <td class="num">R$ 1.0M</td>
+        </tr><tr data-bu="PODCAST COM PLATÉIA">
+          <td class="muted">9</td>
+          <td><span class="bu-pill" style="background:rgba(88,166,255,0.15);color:#58a6ff">PODCAST COM PLATÉIA</span></td>
+          <td><strong>DR CARLOS</strong></td>
+          <td class="muted" style="font-size:12px">FECHAR EM JUNHO</td>
+          <td class="muted">EMILY/GRASI</td>
+          <td><span class="badge b-def">—</span></td>
+          <td>Aug/2026</td>
+          <td class="num">R$ 1.0M</td>
+        </tr><tr data-bu="PODCAST COM PLATÉIA">
+          <td class="muted">10</td>
+          <td><span class="bu-pill" style="background:rgba(88,166,255,0.15);color:#58a6ff">PODCAST COM PLATÉIA</span></td>
+          <td><strong>NORMA</strong></td>
+          <td class="muted" style="font-size:12px">FECHAR EM JUNHO</td>
+          <td class="muted">—</td>
+          <td><span class="badge b-def">—</span></td>
+          <td>—</td>
+          <td class="num">R$ 1.0M</td>
+        </tr><tr data-bu="PUBLICIDADE">
+          <td class="muted">11</td>
+          <td><span class="bu-pill" style="background:rgba(255,166,87,0.15);color:#ffa657">PUBLICIDADE</span></td>
+          <td><strong>1</strong></td>
+          <td class="muted" style="font-size:12px">1000000</td>
+          <td class="muted">0.024390243902439025</td>
+          <td><span class="badge b-def">—</span></td>
+          <td>—</td>
+          <td class="num">—</td>
+        </tr><tr data-bu="ADVISORY">
+          <td class="muted">12</td>
+          <td><span class="bu-pill" style="background:rgba(248,81,73,0.15);color:#f85149">ADVISORY</span></td>
+          <td><strong>0</strong></td>
+          <td class="muted" style="font-size:12px">0</td>
+          <td class="muted">0</td>
+          <td><span class="badge b-def">—</span></td>
+          <td>—</td>
+          <td class="num">—</td>
+        </tr><tr data-bu="JOTA EDITION">
+          <td class="muted">13</td>
+          <td><span class="bu-pill" style="background:rgba(210,153,34,0.15);color:#d29922">JOTA EDITION</span></td>
+          <td><strong>0</strong></td>
+          <td class="muted" style="font-size:12px">0</td>
+          <td class="muted">0</td>
+          <td><span class="badge b-def">—</span></td>
+          <td>—</td>
+          <td class="num">—</td>
+        </tr><tr data-bu="PALESTRAS">
+          <td class="muted">14</td>
+          <td><span class="bu-pill" style="background:rgba(188,140,255,0.15);color:#bc8cff">PALESTRAS</span></td>
+          <td><strong>0</strong></td>
+          <td class="muted" style="font-size:12px">0</td>
+          <td class="muted">0</td>
+          <td><span class="badge b-def">—</span></td>
+          <td>—</td>
+          <td class="num">—</td>
+        </tr><tr data-bu="JOTA LAB">
+          <td class="muted">15</td>
+          <td><span class="bu-pill" style="background:rgba(57,211,83,0.15);color:#39d353">JOTA LAB</span></td>
+          <td><strong>0</strong></td>
+          <td class="muted" style="font-size:12px">0</td>
+          <td class="muted">0</td>
+          <td><span class="badge b-def">—</span></td>
+          <td>—</td>
+          <td class="num">—</td>
+        </tr><tr data-bu="ADSENSE">
+          <td class="muted">16</td>
+          <td><span class="bu-pill" style="background:rgba(139,148,158,0.15);color:#8b949e">ADSENSE</span></td>
+          <td><strong>0</strong></td>
+          <td class="muted" style="font-size:12px">0</td>
+          <td class="muted">0</td>
+          <td><span class="badge b-def">—</span></td>
+          <td>—</td>
+          <td class="num">—</td>
+        </tr></tbody>
+          <tfoot><tr><td colspan="7"><strong>Total</strong></td><td class="num" id="jc-pipe-total">R$ 10.0M</td></tr></tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- METAS JC -->
+  <div id="jc-metas" class="section">
+    <div class="card">
+      <h3>Atingimento por B.U. — Jota Co 2026</h3>
+      <div class="tbl-wrap">
+        <table class="data">
+          <thead><tr><th>B.U.</th><th style="text-align:right">Meta Anual</th><th style="text-align:right">Vendido</th><th style="text-align:right">Pipe</th><th>Progresso</th><th style="text-align:right">GAP</th></tr></thead>
+          <tbody><tr>
+          <td>PALESTRAS</td>
+          <td class="num">R$ 1.8M</td>
+          <td class="num" style="color:#3fb950">R$ 5K</td>
+          <td class="num">—</td>
+          <td><div style="display:flex;align-items:center;gap:8px">
+            <div style="flex:1;height:7px;background:#30363d;border-radius:99px;overflow:hidden">
+              <div style="width:100.0%;height:100%;background:#d29922;border-radius:99px"></div>
+            </div>
+            <span style="font-size:12px;font-weight:600;color:#d29922;width:44px;text-align:right">415000.0%</span>
+          </div></td>
+          <td class="num" style="color:#f85149">R$ -0</td>
+        </tr><tr>
+          <td>PUBLICIDADE</td>
+          <td class="num">R$ 40.9M</td>
+          <td class="num" style="color:#3fb950">R$ 112K</td>
+          <td class="num">—</td>
+          <td><div style="display:flex;align-items:center;gap:8px">
+            <div style="flex:1;height:7px;background:#30363d;border-radius:99px;overflow:hidden">
+              <div style="width:100.0%;height:100%;background:#ffa657;border-radius:99px"></div>
+            </div>
+            <span style="font-size:12px;font-weight:600;color:#ffa657;width:44px;text-align:right">930191.4%</span>
+          </div></td>
+          <td class="num" style="color:#f85149">R$ -0</td>
+        </tr><tr>
+          <td>JOTA LAB</td>
+          <td class="num">R$ 5.8M</td>
+          <td class="num" style="color:#3fb950">R$ 16K</td>
+          <td class="num">—</td>
+          <td><div style="display:flex;align-items:center;gap:8px">
+            <div style="flex:1;height:7px;background:#30363d;border-radius:99px;overflow:hidden">
+              <div style="width:100.0%;height:100%;background:#3fb950;border-radius:99px"></div>
+            </div>
+            <span style="font-size:12px;font-weight:600;color:#3fb950;width:44px;text-align:right">39368.2%</span>
+          </div></td>
+          <td class="num" style="color:#f85149">R$ -0</td>
+        </tr><tr>
+          <td>JOTA EDITION</td>
+          <td class="num">R$ 1.8M</td>
+          <td class="num" style="color:#3fb950">R$ 5K</td>
+          <td class="num">—</td>
+          <td><div style="display:flex;align-items:center;gap:8px">
+            <div style="flex:1;height:7px;background:#30363d;border-radius:99px;overflow:hidden">
+              <div style="width:100.0%;height:100%;background:#39d353;border-radius:99px"></div>
+            </div>
+            <span style="font-size:12px;font-weight:600;color:#39d353;width:44px;text-align:right">44075.9%</span>
+          </div></td>
+          <td class="num" style="color:#f85149">R$ -1</td>
+        </tr><tr>
+          <td>ADVISORY</td>
+          <td class="num">R$ 8.8M</td>
+          <td class="num" style="color:#3fb950">R$ 24K</td>
+          <td class="num">—</td>
+          <td><div style="display:flex;align-items:center;gap:8px">
+            <div style="flex:1;height:7px;background:#30363d;border-radius:99px;overflow:hidden">
+              <div style="width:100.0%;height:100%;background:#bc8cff;border-radius:99px"></div>
+            </div>
+            <span style="font-size:12px;font-weight:600;color:#bc8cff;width:44px;text-align:right">1144444.4%</span>
+          </div></td>
+          <td class="num" style="color:#f85149">R$ -1</td>
+        </tr><tr>
+          <td>ADSENSE</td>
+          <td class="num">R$ 657K</td>
+          <td class="num" style="color:#3fb950">R$ 2K</td>
+          <td class="num">—</td>
+          <td><div style="display:flex;align-items:center;gap:8px">
+            <div style="flex:1;height:7px;background:#30363d;border-radius:99px;overflow:hidden">
+              <div style="width:100.0%;height:100%;background:#8b949e;border-radius:99px"></div>
+            </div>
+            <span style="font-size:12px;font-weight:600;color:#8b949e;width:44px;text-align:right">116644.9%</span>
+          </div></td>
+          <td class="num" style="color:#f85149">R$ -1</td>
+        </tr></tbody>
+          <tfoot><tr>
+            <td>TOTAL JOTA CO</td>
+            <td class="num">R$ 59.6M</td>
+            <td class="num" style="color:#3fb950">R$ 163K</td>
+            <td class="num">—</td>
+            <td><span style="font-size:13px;font-weight:700;color:#d29922">22850112.0%</span></td>
+            <td class="num" style="color:#f85149">R$ 0</td>
+          </tr></tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- MENSAL JC -->
+  <div id="jc-mensal" class="section">
+    <div class="card">
+      <h3>Evolução Mensal — Jota Co</h3>
+      <div class="tbl-wrap">
+        <table class="data">
+          <thead><tr><th>Mês</th><th style="text-align:right">Realizado</th><th style="text-align:right">Meta</th><th style="text-align:right">% Meta</th><th style="text-align:right">Acumulado</th></tr></thead>
+          <tbody><tr>
+              <td><strong>Janeiro</strong></td>
+              <td class="num" style="color:#3fb950">R$ 4.2M</td>
+              <td class="num muted">R$ 1</td>
+              <td class="num"><span style="color:#3fb950">4876179.6%</span></td>
+              <td class="num">—</td>
+            </tr><tr>
+              <td><strong>Fevereiro</strong></td>
+              <td class="num" style="color:#3fb950">R$ 4.2M</td>
+              <td class="num muted">R$ 1</td>
+              <td class="num"><span style="color:#3fb950">9800913.6%</span></td>
+              <td class="num">—</td>
+            </tr><tr>
+              <td><strong>Março</strong></td>
+              <td class="num" style="color:#3fb950">R$ 10.9M</td>
+              <td class="num muted">R$ 0</td>
+              <td class="num"><span style="color:#3fb950">13970065.4%</span></td>
+              <td class="num">—</td>
+            </tr><tr>
+              <td><strong>Abril</strong></td>
+              <td class="num" style="color:#3fb950">R$ 22.9M</td>
+              <td class="num muted">R$ 0</td>
+              <td class="num"><span style="color:#3fb950">15639948.8%</span></td>
+              <td class="num">—</td>
+            </tr><tr>
+              <td><strong>Maio</strong></td>
+              <td class="num" style="color:#3fb950">R$ 14.6M</td>
+              <td class="num muted">R$ 0</td>
+              <td class="num"><span style="color:#3fb950">19879597.4%</span></td>
+              <td class="num">—</td>
+            </tr><tr>
+              <td><strong>Junho</strong></td>
+              <td class="num" style="color:#3fb950">R$ 10.6M</td>
+              <td class="num muted">—</td>
+              <td class="num"><span style="color:#3fb950">19879597.4%</span></td>
+              <td class="num">—</td>
+            </tr><tr>
+              <td><strong>Julho</strong></td>
+              <td class="num" style="color:#3fb950">R$ 11.6M</td>
+              <td class="num muted">—</td>
+              <td class="num"><span style="color:#3fb950">19879597.4%</span></td>
+              <td class="num">—</td>
+            </tr><tr>
+              <td><strong>Agosto</strong></td>
+              <td class="num" style="color:#3fb950">R$ 14.6M</td>
+              <td class="num muted">—</td>
+              <td class="num"><span style="color:#3fb950">19879597.4%</span></td>
+              <td class="num">—</td>
+            </tr><tr>
+              <td><strong>Setembro</strong></td>
+              <td class="num" style="color:#3fb950">R$ 14.6M</td>
+              <td class="num muted">—</td>
+              <td class="num"><span style="color:#3fb950">19879597.4%</span></td>
+              <td class="num">—</td>
+            </tr><tr>
+              <td><strong>Outubro</strong></td>
+              <td class="num" style="color:#3fb950">R$ 12.6M</td>
+              <td class="num muted">—</td>
+              <td class="num"><span style="color:#3fb950">19879597.4%</span></td>
+              <td class="num">—</td>
+            </tr><tr>
+              <td><strong>Novembro</strong></td>
+              <td class="num" style="color:#3fb950">R$ 9.6M</td>
+              <td class="num muted">—</td>
+              <td class="num"><span style="color:#3fb950">19879597.4%</span></td>
+              <td class="num">—</td>
+            </tr><tr>
+              <td><strong>Dezembro</strong></td>
+              <td class="num" style="color:#3fb950">R$ 12.6M</td>
+              <td class="num muted">—</td>
+              <td class="num"><span style="color:#3fb950">19879597.4%</span></td>
+              <td class="num">—</td>
+            </tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPARATIVO 2025 vs 2026 -->
+  <div id="jc-comp" class="section">
+    <div class="two-col" style="margin-bottom:16px">
+      <div class="kpi" style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px">
+        <label>Total Jota Co 2025</label>
+        <div style="font-size:22px;font-weight:700;color:var(--muted)">R$ 27.0M</div>
+      </div>
+      <div class="kpi green">
+        <label>Total Jota Co 2026 (até agora)</label>
+        <div class="val">R$ 163K</div>
+        <div class="sub">vs meta anual 22850112.0%</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:16px">
+      <h3>Comparativo por B.U.</h3>
+      <div class="tbl-wrap">
+        <table class="data">
+          <thead><tr><th>B.U.</th><th style="text-align:right">2025</th><th style="text-align:right">2026</th><th style="text-align:right">Variação R$</th><th style="text-align:right">Variação %</th></tr></thead>
+          <tbody><tr>
+          <td>PALESTRAS</td>
+          <td class="num">R$ 5.0M</td>
+          <td class="num" style="color:#3fb950">R$ 830K</td>
+          <td class="num" style="color:#f85149">▼ R$ -4.2M</td>
+          <td class="num" style="color:#f85149">▼ -83.4%</td>
+        </tr><tr>
+          <td>PUBLICIDADE</td>
+          <td class="num">R$ 4.0M</td>
+          <td class="num" style="color:#3fb950">R$ 5.6M</td>
+          <td class="num" style="color:#3fb950">▲ +R$ 1.6M</td>
+          <td class="num" style="color:#3fb950">▲ 39.5%</td>
+        </tr><tr>
+          <td>JOTA LAB</td>
+          <td class="num">R$ 4.0M</td>
+          <td class="num" style="color:#3fb950">R$ 1.7M</td>
+          <td class="num" style="color:#f85149">▼ R$ -2.2M</td>
+          <td class="num" style="color:#f85149">▼ -56.4%</td>
+        </tr><tr>
+          <td>JOTA EDITION</td>
+          <td class="num">—</td>
+          <td class="num" style="color:#3fb950">R$ 970K</td>
+          <td class="num" style="color:#3fb950">▲ +R$ 970K</td>
+          <td class="num" style="color:#3fb950">▲ 0.0%</td>
+        </tr><tr>
+          <td>ADVISORY</td>
+          <td class="num">R$ 4.0M</td>
+          <td class="num" style="color:#3fb950">R$ 10.3M</td>
+          <td class="num" style="color:#3fb950">▲ +R$ 6.3M</td>
+          <td class="num" style="color:#3fb950">▲ 155.3%</td>
+        </tr><tr>
+          <td>ADSENSE / OUTROS</td>
+          <td class="num">R$ 10.0M</td>
+          <td class="num" style="color:#3fb950">R$ 467K</td>
+          <td class="num" style="color:#f85149">▼ R$ -9.5M</td>
+          <td class="num" style="color:#f85149">▼ -95.3%</td>
+        </tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Comparativo por Período</h3>
+      <div class="tbl-wrap">
+        <table class="data">
+          <thead><tr><th>Período</th><th style="text-align:right">2025</th><th style="text-align:right">2026</th><th style="text-align:right">Variação R$</th><th style="text-align:right">Variação %</th></tr></thead>
+          <tbody><tr>
+          <td><strong>Jan-Mar (Q1)</strong></td>
+          <td class="num">R$ 5.3M</td>
+          <td class="num">R$ 14.0M</td>
+          <td class="num" style="color:#3fb950">▲ +R$ 8.7M</td>
+          <td class="num" style="color:#3fb950">▲ 164.6%</td>
+        </tr><tr>
+          <td><strong>Abril</strong></td>
+          <td class="num">R$ 3.8M</td>
+          <td class="num">R$ 1.7M</td>
+          <td class="num" style="color:#f85149">▼ R$ -2.1M</td>
+          <td class="num" style="color:#f85149">▼ -55.8%</td>
+        </tr><tr>
+          <td><strong>Maio</strong></td>
+          <td class="num">R$ 1.5M</td>
+          <td class="num">R$ 4.2M</td>
+          <td class="num" style="color:#3fb950">▲ +R$ 2.7M</td>
+          <td class="num" style="color:#3fb950">▲ 176.6%</td>
+        </tr><tr>
+          <td><strong>Junho</strong></td>
+          <td class="num">R$ 1.9M</td>
+          <td class="num"><span style="color:#8b949e">—</span></td>
+          <td class="num" style="color:#f85149">▼ R$ -1.9M</td>
+          <td class="num" style="color:#f85149">▼ -100.0%</td>
+        </tr><tr>
+          <td><strong>Julho</strong></td>
+          <td class="num">R$ 2.8M</td>
+          <td class="num"><span style="color:#8b949e">—</span></td>
+          <td class="num" style="color:#f85149">▼ R$ -2.8M</td>
+          <td class="num" style="color:#f85149">▼ -100.0%</td>
+        </tr><tr>
+          <td><strong>Agosto</strong></td>
+          <td class="num">R$ 667K</td>
+          <td class="num"><span style="color:#8b949e">—</span></td>
+          <td class="num" style="color:#f85149">▼ R$ -667K</td>
+          <td class="num" style="color:#f85149">▼ -100.0%</td>
+        </tr><tr>
+          <td><strong>Setembro</strong></td>
+          <td class="num">R$ 6.2M</td>
+          <td class="num"><span style="color:#8b949e">—</span></td>
+          <td class="num" style="color:#f85149">▼ R$ -6.2M</td>
+          <td class="num" style="color:#f85149">▼ -100.0%</td>
+        </tr><tr>
+          <td><strong>Outubro</strong></td>
+          <td class="num">R$ 1.3M</td>
+          <td class="num"><span style="color:#8b949e">—</span></td>
+          <td class="num" style="color:#f85149">▼ R$ -1.3M</td>
+          <td class="num" style="color:#f85149">▼ -100.0%</td>
+        </tr><tr>
+          <td><strong>Novembro</strong></td>
+          <td class="num">R$ 2.4M</td>
+          <td class="num"><span style="color:#8b949e">—</span></td>
+          <td class="num" style="color:#f85149">▼ R$ -2.4M</td>
+          <td class="num" style="color:#f85149">▼ -100.0%</td>
+        </tr><tr>
+          <td><strong>Dezembro</strong></td>
+          <td class="num">R$ 348K</td>
+          <td class="num"><span style="color:#8b949e">—</span></td>
+          <td class="num" style="color:#f85149">▼ R$ -348K</td>
+          <td class="num" style="color:#f85149">▼ -100.0%</td>
+        </tr></tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
 
 <script>
-function goTab(id,btn){
-  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+function goPage(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+  document.querySelectorAll('.page-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).style.display = 'block';
+  btn.classList.add('active');
+}
+function goTab(id, btn, prefix) {
+  document.querySelectorAll('#pg-' + (prefix==='g'?'geral':'jotaco') + ' .section').forEach(s => s.classList.remove('active'));
+  const parent = btn.closest('.page');
+  parent.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   btn.classList.add('active');
 }
-function filtPipe(bu,btn){
-  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
+function filtPipe(tbodyId, totalId, bu, btn) {
+  const parent = btn.closest('.card');
+  parent.querySelectorAll('.fbtn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  let total=0;
-  document.querySelectorAll('#pipeTbody tr').forEach(row=>{
-    const show=bu==='todos'||row.dataset.bu===bu;
-    row.style.display=show?'':'none';
-    if(show){const v=row.querySelectorAll('td')[7].textContent.replace(/[R$.\s]/g,'').replace(',','.');total+=parseFloat(v)||0;}
+  let total = 0;
+  document.querySelectorAll('#' + tbodyId + ' tr').forEach(row => {
+    const show = bu === 'todos' || row.dataset.bu === bu;
+    row.style.display = show ? '' : 'none';
+    if (show) {
+      const tds = row.querySelectorAll('td');
+      const v = tds[tds.length-1].textContent.replace('R$','').replace(/[.\s]/g,'').replace(',','.').trim();
+      const num = parseFloat(v.replace(/[^0-9.,]/g,'').replace(',','.'));
+      if (!isNaN(num)) total += num;
+    }
   });
-  document.getElementById('pipeTotal').textContent='R$ '+Math.round(total).toLocaleString('pt-BR');
+  const fmt = total >= 1e6 ? 'R$ '+(total/1e6).toFixed(1)+'M' : 'R$ '+(total/1e3).toFixed(0)+'K';
+  document.getElementById(totalId).textContent = fmt;
 }
 </script>
 </body>
