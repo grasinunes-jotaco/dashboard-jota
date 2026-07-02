@@ -102,14 +102,13 @@ table.data tfoot td{font-weight:700;border-top:1px solid var(--border)}
 <div class="header">
   <div>
     <h1>📊 Dashboard Vendas & Pipe 2026</h1>
-    <p>Atualizado automaticamente em 02/07/2026 às 09:01</p>
+    <p>Atualizado automaticamente em 02/07/2026 às 09:10</p>
   </div>
   <span class="upd-badge">🔄 Auto-atualiza às 21h</span>
 </div>
 
 <div class="page-nav">
   <button class="page-btn active" onclick="goPage('pg-geral',this)">🌐 Geral</button>
-  <a class="page-btn" href="seleto.html" style="text-decoration:none;display:flex;align-items:center;justify-content:center">🎯 Seleto</a>
   <button class="page-btn" onclick="goPage('pg-jotaco',this)">🏢 Jota Co</button>
 </div>
 
@@ -120,6 +119,7 @@ table.data tfoot td{font-weight:700;border-top:1px solid var(--border)}
     <button class="tab" onclick="goTab('g-pipe',this,'g')">Pipeline</button>
     <button class="tab" onclick="goTab('g-metas',this,'g')">Metas por B.U.</button>
     <button class="tab" onclick="goTab('g-mensal',this,'g')">Mensal</button>
+    <button class="tab" onclick="goTab('g-h1',this,'g')">📅 Jan–Jun</button>
   </div>
 
   <!-- OVERVIEW GERAL -->
@@ -836,6 +836,1146 @@ table.data tfoot td{font-weight:700;border-top:1px solid var(--border)}
       </div>
     </div>
   </div>
+
+  
+  <!-- H1 JAN-JUN -->
+  <div id="g-h1" class="section">
+    <div class="kpi-grid">
+      <div class="kpi green"><label>Total Jan–Jun</label>
+        <div class="val">R$ 38.8M</div>
+        <div class="sub">106 vendas realizadas</div></div>
+      <div class="kpi yellow"><label>Meta H1</label>
+        <div class="val">R$ 38.5M</div>
+        <div class="sub">Soma metas Jan a Jun</div></div>
+      <div class="kpi" style="border-color:#3fb95033"><label>Atingimento H1</label>
+        <div class="val" style="color:#3fb950">100.8%</div>
+        <div class="sub">✅ Meta batida!</div></div>
+      <div class="kpi blue"><label>Ticket Médio</label>
+        <div class="val">R$ 366K</div>
+        <div class="sub">106 deals · 8 BUs</div></div>
+    </div>
+
+    <div class="card" style="margin-bottom:20px">
+      <h3>Progresso H1 vs Meta</h3>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <span style="font-size:13px;color:var(--muted)">R$ 38.8M de R$ 38.5M</span>
+        <span style="font-size:20px;font-weight:700;color:#3fb950">100.8%</span>
+      </div>
+      <div style="height:12px;background:var(--border);border-radius:99px;overflow:hidden">
+        <div style="width:100.0%;height:100%;background:linear-gradient(90deg,#3fb950,#58a6ff);border-radius:99px"></div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
+      <div class="card">
+        <h3>Por Business Unit</h3>
+        <div class="tbl-wrap">
+          <table class="data">
+            <thead><tr><th>B.U.</th><th style="text-align:right">Qtd</th><th>% do Total</th><th style="text-align:right">Valor</th></tr></thead>
+            <tbody><tr>
+          <td>SELETO</td>
+          <td class="num">4</td>
+          <td><div style="display:flex;align-items:center;gap:8px">
+            <div style="flex:1;height:7px;background:#30363d;border-radius:99px;overflow:hidden">
+              <div style="width:30.9%;height:100%;background:#58a6ff;border-radius:99px"></div>
+            </div>
+            <span style="font-size:11px;color:var(--muted);width:36px;text-align:right">30.9%</span>
+          </div></td>
+          <td class="num" style="color:#3fb950">R$ 12.0M</td>
+        </tr><tr>
+          <td>ADVISORY</td>
+          <td class="num">9</td>
+          <td><div style="display:flex;align-items:center;gap:8px">
+            <div style="flex:1;height:7px;background:#30363d;border-radius:99px;overflow:hidden">
+              <div style="width:26.5%;height:100%;background:#bc8cff;border-radius:99px"></div>
+            </div>
+            <span style="font-size:11px;color:var(--muted);width:36px;text-align:right">26.5%</span>
+          </div></td>
+          <td class="num" style="color:#3fb950">R$ 10.3M</td>
+        </tr><tr>
+          <td>A TRINCA MÍDIA</td>
+          <td class="num">2</td>
+          <td><div style="display:flex;align-items:center;gap:8px">
+            <div style="flex:1;height:7px;background:#30363d;border-radius:99px;overflow:hidden">
+              <div style="width:16.7%;height:100%;background:#f85149;border-radius:99px"></div>
+            </div>
+            <span style="font-size:11px;color:var(--muted);width:36px;text-align:right">16.7%</span>
+          </div></td>
+          <td class="num" style="color:#3fb950">R$ 6.5M</td>
+        </tr><tr>
+          <td>PUBLICIDADE</td>
+          <td class="num">6</td>
+          <td><div style="display:flex;align-items:center;gap:8px">
+            <div style="flex:1;height:7px;background:#30363d;border-radius:99px;overflow:hidden">
+              <div style="width:14.4%;height:100%;background:#ffa657;border-radius:99px"></div>
+            </div>
+            <span style="font-size:11px;color:var(--muted);width:36px;text-align:right">14.4%</span>
+          </div></td>
+          <td class="num" style="color:#3fb950">R$ 5.6M</td>
+        </tr><tr>
+          <td>JOTA LAB</td>
+          <td class="num">55</td>
+          <td><div style="display:flex;align-items:center;gap:8px">
+            <div style="flex:1;height:7px;background:#30363d;border-radius:99px;overflow:hidden">
+              <div style="width:5.4%;height:100%;background:#3fb950;border-radius:99px"></div>
+            </div>
+            <span style="font-size:11px;color:var(--muted);width:36px;text-align:right">5.4%</span>
+          </div></td>
+          <td class="num" style="color:#3fb950">R$ 2.1M</td>
+        </tr><tr>
+          <td>JOTA EDITION</td>
+          <td class="num">23</td>
+          <td><div style="display:flex;align-items:center;gap:8px">
+            <div style="flex:1;height:7px;background:#30363d;border-radius:99px;overflow:hidden">
+              <div style="width:2.5%;height:100%;background:#39d353;border-radius:99px"></div>
+            </div>
+            <span style="font-size:11px;color:var(--muted);width:36px;text-align:right">2.5%</span>
+          </div></td>
+          <td class="num" style="color:#3fb950">R$ 976K</td>
+        </tr><tr>
+          <td>PALESTRAS</td>
+          <td class="num">2</td>
+          <td><div style="display:flex;align-items:center;gap:8px">
+            <div style="flex:1;height:7px;background:#30363d;border-radius:99px;overflow:hidden">
+              <div style="width:2.1%;height:100%;background:#d29922;border-radius:99px"></div>
+            </div>
+            <span style="font-size:11px;color:var(--muted);width:36px;text-align:right">2.1%</span>
+          </div></td>
+          <td class="num" style="color:#3fb950">R$ 830K</td>
+        </tr><tr>
+          <td>ADSENSE</td>
+          <td class="num">5</td>
+          <td><div style="display:flex;align-items:center;gap:8px">
+            <div style="flex:1;height:7px;background:#30363d;border-radius:99px;overflow:hidden">
+              <div style="width:1.4%;height:100%;background:#8b949e;border-radius:99px"></div>
+            </div>
+            <span style="font-size:11px;color:var(--muted);width:36px;text-align:right">1.4%</span>
+          </div></td>
+          <td class="num" style="color:#3fb950">R$ 531K</td>
+        </tr></tbody>
+            <tfoot><tr><td><strong>TOTAL</strong></td><td class="num"><strong>106</strong></td><td></td><td class="num" style="color:#3fb950"><strong>R$ 38.8M</strong></td></tr></tfoot>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Por Mês</h3>
+        <div class="tbl-wrap">
+          <table class="data">
+            <thead><tr><th>Mês</th><th style="text-align:right">Realizado</th><th style="text-align:right">Meta</th><th style="text-align:right">% Meta</th><th style="text-align:right">Acumulado</th></tr></thead>
+            <tbody><tr>
+          <td><strong>Janeiro</strong></td>
+          <td class="num" style="color:#3fb950">R$ 4.9M</td>
+          <td class="num muted">R$ 4.9M</td>
+          <td class="num"><span style="color:#3fb950">100.0%</span></td>
+          <td class="num">R$ 4.9M</td>
+        </tr><tr>
+          <td><strong>Fevereiro</strong></td>
+          <td class="num" style="color:#3fb950">R$ 4.9M</td>
+          <td class="num muted">R$ 4.9M</td>
+          <td class="num"><span style="color:#3fb950">100.0%</span></td>
+          <td class="num">R$ 9.8M</td>
+        </tr><tr>
+          <td><strong>Março</strong></td>
+          <td class="num" style="color:#3fb950">R$ 10.2M</td>
+          <td class="num muted">R$ 10.2M</td>
+          <td class="num"><span style="color:#3fb950">100.0%</span></td>
+          <td class="num">R$ 20.0M</td>
+        </tr><tr>
+          <td><strong>Abril</strong></td>
+          <td class="num" style="color:#3fb950">R$ 1.7M</td>
+          <td class="num muted">R$ 1.7M</td>
+          <td class="num"><span style="color:#3fb950">100.0%</span></td>
+          <td class="num">R$ 21.6M</td>
+        </tr><tr>
+          <td><strong>Maio</strong></td>
+          <td class="num" style="color:#3fb950">R$ 16.9M</td>
+          <td class="num muted">R$ 16.9M</td>
+          <td class="num"><span style="color:#3fb950">100.0%</span></td>
+          <td class="num">R$ 38.5M</td>
+        </tr><tr>
+          <td><strong>Junho</strong></td>
+          <td class="num" style="color:#3fb950">R$ 322K</td>
+          <td class="num muted">R$ 32K</td>
+          <td class="num"><span style="color:#3fb950">1022.4%</span></td>
+          <td class="num">R$ 38.8M</td>
+        </tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Todas as Vendas Jan–Jun (106 registros)</h3>
+      <div class="filters" style="margin-bottom:8px">
+        <button class="fbtn active" onclick="filtH1('todos','todos',this)">Todos</button>
+        <button class="fbtn" onclick="filtH1('Janeiro','mes',this)">Janeiro</button><button class="fbtn" onclick="filtH1('Fevereiro','mes',this)">Fevereiro</button><button class="fbtn" onclick="filtH1('Março','mes',this)">Março</button><button class="fbtn" onclick="filtH1('Abril','mes',this)">Abril</button><button class="fbtn" onclick="filtH1('Maio','mes',this)">Maio</button><button class="fbtn" onclick="filtH1('Junho','mes',this)">Junho</button>
+      </div>
+      <div class="filters">
+        <button class="fbtn" onclick="filtH1('A TRINCA MÍDIA','bu',this)">A TRINCA MÍDIA</button><button class="fbtn" onclick="filtH1('ADSENSE','bu',this)">ADSENSE</button><button class="fbtn" onclick="filtH1('ADVISORY','bu',this)">ADVISORY</button><button class="fbtn" onclick="filtH1('JOTA EDITION','bu',this)">JOTA EDITION</button><button class="fbtn" onclick="filtH1('JOTA LAB','bu',this)">JOTA LAB</button><button class="fbtn" onclick="filtH1('PALESTRAS','bu',this)">PALESTRAS</button><button class="fbtn" onclick="filtH1('PUBLICIDADE','bu',this)">PUBLICIDADE</button><button class="fbtn" onclick="filtH1('SELETO','bu',this)">SELETO</button>
+      </div>
+      <div class="tbl-wrap">
+        <table class="data">
+          <thead><tr><th>#</th><th>Data</th><th>B.U.</th><th>Cliente</th><th>Descrição</th><th>Mês</th><th>Resp.</th><th style="text-align:right">Valor</th></tr></thead>
+          <tbody id="h1-tbody"><tr data-mes="Janeiro" data-bu="JOTA LAB">
+          <td class="muted">1</td>
+          <td class="muted">07/01/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>JONAS LIMA</strong></td>
+          <td class="muted" style="font-size:12px">MENTOR MLS</td>
+          <td class="muted">Janeiro</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 25K</td>
+        </tr><tr data-mes="Janeiro" data-bu="JOTA LAB">
+          <td class="muted">2</td>
+          <td class="muted">07/01/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>PEDRO QUINTANILHA</strong></td>
+          <td class="muted" style="font-size:12px">SELETO</td>
+          <td class="muted">Janeiro</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 50K</td>
+        </tr><tr data-mes="Janeiro" data-bu="JOTA LAB">
+          <td class="muted">3</td>
+          <td class="muted">09/01/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>NATHALIA FREITAS</strong></td>
+          <td class="muted" style="font-size:12px">MENTOR MLS</td>
+          <td class="muted">Janeiro</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 25K</td>
+        </tr><tr data-mes="Janeiro" data-bu="JOTA LAB">
+          <td class="muted">4</td>
+          <td class="muted">09/01/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>BRENO</strong></td>
+          <td class="muted" style="font-size:12px">CLUBE TECH SALES</td>
+          <td class="muted">Janeiro</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 25K</td>
+        </tr><tr data-mes="Janeiro" data-bu="JOTA LAB">
+          <td class="muted">5</td>
+          <td class="muted">09/01/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>SELETO - PEDRO QUINTANILHA</strong></td>
+          <td class="muted" style="font-size:12px">SELETO CLUB</td>
+          <td class="muted">Janeiro</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 160K</td>
+        </tr><tr data-mes="Janeiro" data-bu="PUBLICIDADE">
+          <td class="muted">6</td>
+          <td class="muted">15/01/2026</td>
+          <td><span class="bu-pill" style="background:#ffa65722;color:#ffa657">PUBLICIDADE</span></td>
+          <td><strong>HOSTINGER</strong></td>
+          <td class="muted" style="font-size:12px">2 vídeos conceitos</td>
+          <td class="muted">Janeiro</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 269K</td>
+        </tr><tr data-mes="Janeiro" data-bu="PUBLICIDADE">
+          <td class="muted">7</td>
+          <td class="muted">22/01/2026</td>
+          <td><span class="bu-pill" style="background:#ffa65722;color:#ffa657">PUBLICIDADE</span></td>
+          <td><strong>MEDICAL SAN</strong></td>
+          <td class="muted" style="font-size:12px">1 ano contrato publicidade</td>
+          <td class="muted">Janeiro</td>
+          <td class="muted">JOEL JOTA</td>
+          <td class="num" style="color:#3fb950">R$ 1.0M</td>
+        </tr><tr data-mes="Janeiro" data-bu="ADVISORY">
+          <td class="muted">8</td>
+          <td class="muted">23/01/2026</td>
+          <td><span class="bu-pill" style="background:#bc8cff22;color:#bc8cff">ADVISORY</span></td>
+          <td><strong>IVAN PONS</strong></td>
+          <td class="muted" style="font-size:12px">6 MESES</td>
+          <td class="muted">Janeiro</td>
+          <td class="muted">GRASI/EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 600K</td>
+        </tr><tr data-mes="Janeiro" data-bu="JOTA LAB">
+          <td class="muted">9</td>
+          <td class="muted">23/01/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>FORMAÇÃO DE MENTORES</strong></td>
+          <td class="muted" style="font-size:12px">FORMAÇÃO DE MENTORES</td>
+          <td class="muted">Janeiro</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 50K</td>
+        </tr><tr data-mes="Janeiro" data-bu="JOTA LAB">
+          <td class="muted">10</td>
+          <td class="muted">23/01/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>SHEENA - MAGIC EVENTOS</strong></td>
+          <td class="muted" style="font-size:12px">CLIENTE FORA DO ECOSSISTEMA</td>
+          <td class="muted">Janeiro</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 32K</td>
+        </tr><tr data-mes="Janeiro" data-bu="ADVISORY">
+          <td class="muted">11</td>
+          <td class="muted">26/01/2026</td>
+          <td><span class="bu-pill" style="background:#bc8cff22;color:#bc8cff">ADVISORY</span></td>
+          <td><strong>FÁBIO GONÇALVES</strong></td>
+          <td class="muted" style="font-size:12px">1 ANO (6 MESES + RENOVAÇÃO 6 MESES)</td>
+          <td class="muted">Janeiro</td>
+          <td class="muted">GRASI / EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 2.0M</td>
+        </tr><tr data-mes="Janeiro" data-bu="JOTA LAB">
+          <td class="muted">12</td>
+          <td class="muted">28/01/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>RODRIGO</strong></td>
+          <td class="muted" style="font-size:12px">SELETO CLUB</td>
+          <td class="muted">Janeiro</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 40K</td>
+        </tr><tr data-mes="Janeiro" data-bu="JOTA LAB">
+          <td class="muted">13</td>
+          <td class="muted">28/01/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>EVERTON</strong></td>
+          <td class="muted" style="font-size:12px">SELETO CLUB</td>
+          <td class="muted">Janeiro</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 20K</td>
+        </tr><tr data-mes="Janeiro" data-bu="JOTA LAB">
+          <td class="muted">14</td>
+          <td class="muted">30/01/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>A TRINCA REAL STATE</strong></td>
+          <td class="muted" style="font-size:12px">MENTOR</td>
+          <td class="muted">Janeiro</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 25K</td>
+        </tr><tr data-mes="Janeiro" data-bu="JOTA LAB">
+          <td class="muted">15</td>
+          <td class="muted">30/01/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>MARÍLIA</strong></td>
+          <td class="muted" style="font-size:12px">MENTORA MLS</td>
+          <td class="muted">Janeiro</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 74K</td>
+        </tr><tr data-mes="Janeiro" data-bu="JOTA EDITION">
+          <td class="muted">16</td>
+          <td class="muted">31/01/2026</td>
+          <td><span class="bu-pill" style="background:#39d35322;color:#39d353">JOTA EDITION</span></td>
+          <td><strong>ESCOLA DO PODCAST</strong></td>
+          <td class="muted" style="font-size:12px">GERAL VENDIDO JANEIRO</td>
+          <td class="muted">Janeiro</td>
+          <td class="muted">GRASI</td>
+          <td class="num" style="color:#3fb950">R$ 357K</td>
+        </tr><tr data-mes="Janeiro" data-bu="ADSENSE">
+          <td class="muted">17</td>
+          <td class="muted">31/01/2026</td>
+          <td><span class="bu-pill" style="background:#8b949e22;color:#8b949e">ADSENSE</span></td>
+          <td><strong>ADSENSE</strong></td>
+          <td class="muted" style="font-size:12px">ADSENSE</td>
+          <td class="muted">Janeiro</td>
+          <td class="muted">X</td>
+          <td class="num" style="color:#3fb950">R$ 125K</td>
+        </tr><tr data-mes="Fevereiro" data-bu="ADSENSE">
+          <td class="muted">18</td>
+          <td class="muted">01/02/2026</td>
+          <td><span class="bu-pill" style="background:#8b949e22;color:#8b949e">ADSENSE</span></td>
+          <td><strong>ADSENSE FEVEREIRO</strong></td>
+          <td class="muted" style="font-size:12px">FEVEREIRO</td>
+          <td class="muted">Fevereiro</td>
+          <td class="muted">X</td>
+          <td class="num" style="color:#3fb950">R$ 65K</td>
+        </tr><tr data-mes="Fevereiro" data-bu="JOTA LAB">
+          <td class="muted">19</td>
+          <td class="muted">01/02/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>DOUGLAS</strong></td>
+          <td class="muted" style="font-size:12px">MEMBRO DA TRINCA RS</td>
+          <td class="muted">Fevereiro</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 32K</td>
+        </tr><tr data-mes="Fevereiro" data-bu="PALESTRAS">
+          <td class="muted">20</td>
+          <td class="muted">06/02/2026</td>
+          <td><span class="bu-pill" style="background:#d2992222;color:#d29922">PALESTRAS</span></td>
+          <td><strong>SUÉLIO</strong></td>
+          <td class="muted" style="font-size:12px">PALESTRA + ADVISORY</td>
+          <td class="muted">Fevereiro</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 800K</td>
+        </tr><tr data-mes="Fevereiro" data-bu="ADVISORY">
+          <td class="muted">21</td>
+          <td class="muted">06/02/2026</td>
+          <td><span class="bu-pill" style="background:#bc8cff22;color:#bc8cff">ADVISORY</span></td>
+          <td><strong>BIA FINOCHIO</strong></td>
+          <td class="muted" style="font-size:12px">1 ANO</td>
+          <td class="muted">Fevereiro</td>
+          <td class="muted">JOEL JOTA</td>
+          <td class="num" style="color:#3fb950">R$ 300K</td>
+        </tr><tr data-mes="Fevereiro" data-bu="ADVISORY">
+          <td class="muted">22</td>
+          <td class="muted">13/02/2026</td>
+          <td><span class="bu-pill" style="background:#bc8cff22;color:#bc8cff">ADVISORY</span></td>
+          <td><strong>FERNANDA TOCHETTO</strong></td>
+          <td class="muted" style="font-size:12px">1 ANO</td>
+          <td class="muted">Fevereiro</td>
+          <td class="muted">GRASI</td>
+          <td class="num" style="color:#3fb950">R$ 1.0M</td>
+        </tr><tr data-mes="Fevereiro" data-bu="JOTA LAB">
+          <td class="muted">23</td>
+          <td class="muted">12/02/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>CRISTIANO ODONTOTOP</strong></td>
+          <td class="muted" style="font-size:12px">MLS</td>
+          <td class="muted">Fevereiro</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 50K</td>
+        </tr><tr data-mes="Fevereiro" data-bu="JOTA LAB">
+          <td class="muted">24</td>
+          <td class="muted">12/02/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>PEDRO QUINTANILHA</strong></td>
+          <td class="muted" style="font-size:12px">INCLUSÃO DE INTERNET</td>
+          <td class="muted">Fevereiro</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 2K</td>
+        </tr><tr data-mes="Fevereiro" data-bu="ADVISORY">
+          <td class="muted">25</td>
+          <td class="muted">20/02/2026</td>
+          <td><span class="bu-pill" style="background:#bc8cff22;color:#bc8cff">ADVISORY</span></td>
+          <td><strong>MARCOS</strong></td>
+          <td class="muted" style="font-size:12px">1 ANO</td>
+          <td class="muted">Fevereiro</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 2.4M</td>
+        </tr><tr data-mes="Fevereiro" data-bu="JOTA EDITION">
+          <td class="muted">26</td>
+          <td class="muted">28/02/2026</td>
+          <td><span class="bu-pill" style="background:#39d35322;color:#39d353">JOTA EDITION</span></td>
+          <td><strong>ESCOLA DO PODCAST</strong></td>
+          <td class="muted" style="font-size:12px">GERAL VENDIDO FEVEREIRO</td>
+          <td class="muted">Fevereiro</td>
+          <td class="muted">GRASI</td>
+          <td class="num" style="color:#3fb950">R$ 276K</td>
+        </tr><tr data-mes="Março" data-bu="JOTA LAB">
+          <td class="muted">27</td>
+          <td class="muted">01/03/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>CLAX CLUB</strong></td>
+          <td class="muted" style="font-size:12px">EVENTO DIA 01 DE MARÇO</td>
+          <td class="muted">Março</td>
+          <td class="muted">X</td>
+          <td class="num" style="color:#3fb950">R$ 20K</td>
+        </tr><tr data-mes="Março" data-bu="JOTA LAB">
+          <td class="muted">28</td>
+          <td class="muted">02/03/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>EDUARDO - PROSPERUS</strong></td>
+          <td class="muted" style="font-size:12px">PROSPERUS</td>
+          <td class="muted">Março</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 50K</td>
+        </tr><tr data-mes="Março" data-bu="ADVISORY">
+          <td class="muted">29</td>
+          <td class="muted">03/03/2026</td>
+          <td><span class="bu-pill" style="background:#bc8cff22;color:#bc8cff">ADVISORY</span></td>
+          <td><strong>ISABELA SOLLER</strong></td>
+          <td class="muted" style="font-size:12px">6 MESES</td>
+          <td class="muted">Março</td>
+          <td class="muted">GRASI/EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 1.0M</td>
+        </tr><tr data-mes="Março" data-bu="ADVISORY">
+          <td class="muted">30</td>
+          <td class="muted">04/03/2026</td>
+          <td><span class="bu-pill" style="background:#bc8cff22;color:#bc8cff">ADVISORY</span></td>
+          <td><strong>BRUNO ANDRADE</strong></td>
+          <td class="muted" style="font-size:12px">6 MESES</td>
+          <td class="muted">Março</td>
+          <td class="muted">GRASI/EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 1.0M</td>
+        </tr><tr data-mes="Março" data-bu="JOTA LAB">
+          <td class="muted">31</td>
+          <td class="muted">05/03/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>PEDRO QUINTANILHA</strong></td>
+          <td class="muted" style="font-size:12px">INCLUSÃO DE INTERNET</td>
+          <td class="muted">Março</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 2K</td>
+        </tr><tr data-mes="Março" data-bu="JOTA LAB">
+          <td class="muted">32</td>
+          <td class="muted">05/03/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>SELETO</strong></td>
+          <td class="muted" style="font-size:12px">PLANNER 100 UNIDADES</td>
+          <td class="muted">Março</td>
+          <td class="muted">X</td>
+          <td class="num" style="color:#3fb950">R$ 20K</td>
+        </tr><tr data-mes="Março" data-bu="JOTA LAB">
+          <td class="muted">33</td>
+          <td class="muted">06/03/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>TREINAMENTO SELETO</strong></td>
+          <td class="muted" style="font-size:12px">DIA 23/02/2026</td>
+          <td class="muted">Março</td>
+          <td class="muted">X</td>
+          <td class="num" style="color:#3fb950">R$ 20K</td>
+        </tr><tr data-mes="Março" data-bu="PUBLICIDADE">
+          <td class="muted">34</td>
+          <td class="muted">11/03/2026</td>
+          <td><span class="bu-pill" style="background:#ffa65722;color:#ffa657">PUBLICIDADE</span></td>
+          <td><strong>AIRBNB</strong></td>
+          <td class="muted" style="font-size:12px">PATROCÍNIO DE 4 EPISÓDIOS</td>
+          <td class="muted">Março</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 192K</td>
+        </tr><tr data-mes="Março" data-bu="JOTA LAB">
+          <td class="muted">35</td>
+          <td class="muted">11/03/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>KATERINE</strong></td>
+          <td class="muted" style="font-size:12px">ADVISORY PROSPERUS</td>
+          <td class="muted">Março</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 50K</td>
+        </tr><tr data-mes="Março" data-bu="JOTA LAB">
+          <td class="muted">36</td>
+          <td class="muted">13/03/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>THIAGO MANCUSSI</strong></td>
+          <td class="muted" style="font-size:12px">ADVISORY PROSPERUS</td>
+          <td class="muted">Março</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 50K</td>
+        </tr><tr data-mes="Março" data-bu="JOTA LAB">
+          <td class="muted">37</td>
+          <td class="muted">13/03/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>KATERINE - CONTRATAÇÃO</strong></td>
+          <td class="muted" style="font-size:12px">ADVISORY PROSPERUS</td>
+          <td class="muted">Março</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 25K</td>
+        </tr><tr data-mes="Março" data-bu="JOTA LAB">
+          <td class="muted">38</td>
+          <td class="muted">16/03/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>MOISÉS</strong></td>
+          <td class="muted" style="font-size:12px">CLIENTE MLS</td>
+          <td class="muted">Março</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 25K</td>
+        </tr><tr data-mes="Março" data-bu="JOTA LAB">
+          <td class="muted">39</td>
+          <td class="muted">17/03/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>ATRS</strong></td>
+          <td class="muted" style="font-size:12px">CLIENTE MLS</td>
+          <td class="muted">Março</td>
+          <td class="muted">X</td>
+          <td class="num" style="color:#3fb950">R$ 25K</td>
+        </tr><tr data-mes="Março" data-bu="JOTA LAB">
+          <td class="muted">40</td>
+          <td class="muted">17/03/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>PEDRO QUINTANILHA</strong></td>
+          <td class="muted" style="font-size:12px">SELETO</td>
+          <td class="muted">Março</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 50K</td>
+        </tr><tr data-mes="Março" data-bu="JOTA LAB">
+          <td class="muted">41</td>
+          <td class="muted">17/03/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>ROSANGELA LOPES</strong></td>
+          <td class="muted" style="font-size:12px">EXCLUSIVE</td>
+          <td class="muted">Março</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 25K</td>
+        </tr><tr data-mes="Março" data-bu="JOTA LAB">
+          <td class="muted">42</td>
+          <td class="muted">18/03/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>DANI MARTINS</strong></td>
+          <td class="muted" style="font-size:12px">23 E 24 DE ABRIL</td>
+          <td class="muted">Março</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 50K</td>
+        </tr><tr data-mes="Março" data-bu="JOTA LAB">
+          <td class="muted">43</td>
+          <td class="muted">19/03/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>ÍCARO GASPAR</strong></td>
+          <td class="muted" style="font-size:12px">MENTOR MLS</td>
+          <td class="muted">Março</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 25K</td>
+        </tr><tr data-mes="Março" data-bu="JOTA LAB">
+          <td class="muted">44</td>
+          <td class="muted">23/03/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>VANESSA GOLTZMAN</strong></td>
+          <td class="muted" style="font-size:12px">JOTALAB+ADVISORY</td>
+          <td class="muted">Março</td>
+          <td class="muted">—</td>
+          <td class="num" style="color:#3fb950">R$ 105K</td>
+        </tr><tr data-mes="Março" data-bu="SELETO">
+          <td class="muted">45</td>
+          <td class="muted">24/03/2026</td>
+          <td><span class="bu-pill" style="background:#58a6ff22;color:#58a6ff">SELETO</span></td>
+          <td><strong>JOSÉ NETTO</strong></td>
+          <td class="muted" style="font-size:12px">SELETO</td>
+          <td class="muted">Março</td>
+          <td class="muted">JOEL JOTA</td>
+          <td class="num" style="color:#3fb950">R$ 3.0M</td>
+        </tr><tr data-mes="Março" data-bu="SELETO">
+          <td class="muted">46</td>
+          <td class="muted">24/03/2026</td>
+          <td><span class="bu-pill" style="background:#58a6ff22;color:#58a6ff">SELETO</span></td>
+          <td><strong>TIAGO GRANITO</strong></td>
+          <td class="muted" style="font-size:12px">SELETO</td>
+          <td class="muted">Março</td>
+          <td class="muted">JOEL JOTA</td>
+          <td class="num" style="color:#3fb950">R$ 3.0M</td>
+        </tr><tr data-mes="Março" data-bu="JOTA EDITION">
+          <td class="muted">47</td>
+          <td class="muted">26/03/2026</td>
+          <td><span class="bu-pill" style="background:#39d35322;color:#39d353">JOTA EDITION</span></td>
+          <td><strong>MÁQUINA TRIPLA</strong></td>
+          <td class="muted" style="font-size:12px">VENDIDO 26 DE MARÇO</td>
+          <td class="muted">Março</td>
+          <td class="muted">—</td>
+          <td class="num" style="color:#3fb950">R$ 87K</td>
+        </tr><tr data-mes="Março" data-bu="ADVISORY">
+          <td class="muted">48</td>
+          <td class="muted">27/03/2026</td>
+          <td><span class="bu-pill" style="background:#bc8cff22;color:#bc8cff">ADVISORY</span></td>
+          <td><strong>AMBRENNA E VICTOR</strong></td>
+          <td class="muted" style="font-size:12px">30 DIAS</td>
+          <td class="muted">Março</td>
+          <td class="muted">GRASI/EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 1.0M</td>
+        </tr><tr data-mes="Março" data-bu="ADSENSE">
+          <td class="muted">49</td>
+          <td class="muted">31/03/2026</td>
+          <td><span class="bu-pill" style="background:#8b949e22;color:#8b949e">ADSENSE</span></td>
+          <td><strong>ADSENSE</strong></td>
+          <td class="muted" style="font-size:12px">ADSENSE</td>
+          <td class="muted">Março</td>
+          <td class="muted">X</td>
+          <td class="num" style="color:#3fb950">R$ 202K</td>
+        </tr><tr data-mes="Março" data-bu="JOTA EDITION">
+          <td class="muted">50</td>
+          <td class="muted">31/03/2026</td>
+          <td><span class="bu-pill" style="background:#39d35322;color:#39d353">JOTA EDITION</span></td>
+          <td><strong>ESCOLA DO PODCAST</strong></td>
+          <td class="muted" style="font-size:12px">GERAL VENDIDO MARÇO</td>
+          <td class="muted">Março</td>
+          <td class="muted">GRASI</td>
+          <td class="num" style="color:#3fb950">R$ 146K</td>
+        </tr><tr data-mes="Abril" data-bu="JOTA LAB">
+          <td class="muted">51</td>
+          <td class="muted">14/04/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>RODRIGO BARBOSA</strong></td>
+          <td class="muted" style="font-size:12px">JOTALAB+ADVISORY</td>
+          <td class="muted">Abril</td>
+          <td class="muted">JOEL</td>
+          <td class="num" style="color:#3fb950">R$ 105K</td>
+        </tr><tr data-mes="Abril" data-bu="JOTA LAB">
+          <td class="muted">52</td>
+          <td class="muted">01/04/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>JAQUELINE JUNQUEIRA</strong></td>
+          <td class="muted" style="font-size:12px">CLUBE MAAB - MLS</td>
+          <td class="muted">Abril</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 25K</td>
+        </tr><tr data-mes="Abril" data-bu="PALESTRAS">
+          <td class="muted">53</td>
+          <td class="muted">01/04/2026</td>
+          <td><span class="bu-pill" style="background:#d2992222;color:#d29922">PALESTRAS</span></td>
+          <td><strong>FABIOLA</strong></td>
+          <td class="muted" style="font-size:12px">PALESTRAS LALAS</td>
+          <td class="muted">Abril</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 30K</td>
+        </tr><tr data-mes="Abril" data-bu="JOTA EDITION">
+          <td class="muted">54</td>
+          <td class="muted">02/04/2026</td>
+          <td><span class="bu-pill" style="background:#39d35322;color:#39d353">JOTA EDITION</span></td>
+          <td><strong>THAIS BERTI</strong></td>
+          <td class="muted" style="font-size:12px">MAQUINA TRIPLA</td>
+          <td class="muted">Abril</td>
+          <td class="muted">—</td>
+          <td class="num" style="color:#3fb950">R$ 7K</td>
+        </tr><tr data-mes="Abril" data-bu="JOTA EDITION">
+          <td class="muted">55</td>
+          <td class="muted">03/04/2026</td>
+          <td><span class="bu-pill" style="background:#39d35322;color:#39d353">JOTA EDITION</span></td>
+          <td><strong>LISIANE</strong></td>
+          <td class="muted" style="font-size:12px">MAQUINA TRIPLA</td>
+          <td class="muted">Abril</td>
+          <td class="muted">Kath</td>
+          <td class="num" style="color:#3fb950">R$ 7K</td>
+        </tr><tr data-mes="Abril" data-bu="JOTA EDITION">
+          <td class="muted">56</td>
+          <td class="muted">04/04/2026</td>
+          <td><span class="bu-pill" style="background:#39d35322;color:#39d353">JOTA EDITION</span></td>
+          <td><strong>NATHALIA CUMINALE</strong></td>
+          <td class="muted" style="font-size:12px">MAQUINA TRIPLA</td>
+          <td class="muted">Abril</td>
+          <td class="muted">Kath</td>
+          <td class="num" style="color:#3fb950">R$ 7K</td>
+        </tr><tr data-mes="Abril" data-bu="JOTA LAB">
+          <td class="muted">57</td>
+          <td class="muted">06/04/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>GABRIELA AMIGA LALAS</strong></td>
+          <td class="muted" style="font-size:12px">LOCAÇÃO JLAB</td>
+          <td class="muted">Abril</td>
+          <td class="muted">Emily</td>
+          <td class="num" style="color:#3fb950">R$ 20K</td>
+        </tr><tr data-mes="Abril" data-bu="JOTA LAB">
+          <td class="muted">58</td>
+          <td class="muted">06/04/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>QUÉSIA CARDOSO</strong></td>
+          <td class="muted" style="font-size:12px">MENTOR MLS</td>
+          <td class="muted">Abril</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 25K</td>
+        </tr><tr data-mes="Abril" data-bu="JOTA EDITION">
+          <td class="muted">59</td>
+          <td class="muted">07/04/2026</td>
+          <td><span class="bu-pill" style="background:#39d35322;color:#39d353">JOTA EDITION</span></td>
+          <td><strong>DIEGO</strong></td>
+          <td class="muted" style="font-size:12px">MAQUINA TRIPLA</td>
+          <td class="muted">Abril</td>
+          <td class="muted">RAFAEL</td>
+          <td class="num" style="color:#3fb950">R$ 7K</td>
+        </tr><tr data-mes="Abril" data-bu="JOTA EDITION">
+          <td class="muted">60</td>
+          <td class="muted">08/04/2026</td>
+          <td><span class="bu-pill" style="background:#39d35322;color:#39d353">JOTA EDITION</span></td>
+          <td><strong>DOUGLAS WALTRIK</strong></td>
+          <td class="muted" style="font-size:12px">MAQUINA TRIPLA</td>
+          <td class="muted">Abril</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 10K</td>
+        </tr><tr data-mes="Abril" data-bu="JOTA LAB">
+          <td class="muted">61</td>
+          <td class="muted">09/04/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>José Rubens - Sala de Guerra</strong></td>
+          <td class="muted" style="font-size:12px">LOCAÇÃO JLAB</td>
+          <td class="muted">Abril</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 105K</td>
+        </tr><tr data-mes="Abril" data-bu="JOTA LAB">
+          <td class="muted">62</td>
+          <td class="muted">09/04/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>NÚBIA</strong></td>
+          <td class="muted" style="font-size:12px">LOCAÇÃO JLAB</td>
+          <td class="muted">Abril</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 25K</td>
+        </tr><tr data-mes="Abril" data-bu="JOTA LAB">
+          <td class="muted">63</td>
+          <td class="muted">10/04/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>TIAGO MANCUSSI</strong></td>
+          <td class="muted" style="font-size:12px">LOCAÇÃO JLAB</td>
+          <td class="muted">Abril</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 50K</td>
+        </tr><tr data-mes="Abril" data-bu="JOTA EDITION">
+          <td class="muted">64</td>
+          <td class="muted">10/04/2026</td>
+          <td><span class="bu-pill" style="background:#39d35322;color:#39d353">JOTA EDITION</span></td>
+          <td><strong>BRUNO</strong></td>
+          <td class="muted" style="font-size:12px">MAQUINA TRIPLA</td>
+          <td class="muted">Abril</td>
+          <td class="muted">KATH</td>
+          <td class="num" style="color:#3fb950">R$ 7K</td>
+        </tr><tr data-mes="Abril" data-bu="JOTA EDITION">
+          <td class="muted">65</td>
+          <td class="muted">13/04/2026</td>
+          <td><span class="bu-pill" style="background:#39d35322;color:#39d353">JOTA EDITION</span></td>
+          <td><strong>RAYANE</strong></td>
+          <td class="muted" style="font-size:12px">MÁQUINA TRIPLA</td>
+          <td class="muted">Abril</td>
+          <td class="muted">KATH</td>
+          <td class="num" style="color:#3fb950">R$ 7K</td>
+        </tr><tr data-mes="Abril" data-bu="JOTA LAB">
+          <td class="muted">66</td>
+          <td class="muted">15/04/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>A TRINCA REAL STATE</strong></td>
+          <td class="muted" style="font-size:12px">LOCAÇÃO JLAB</td>
+          <td class="muted">Abril</td>
+          <td class="muted">JOEL JOTA</td>
+          <td class="num" style="color:#3fb950">R$ 25K</td>
+        </tr><tr data-mes="Abril" data-bu="JOTA EDITION">
+          <td class="muted">67</td>
+          <td class="muted">15/04/2026</td>
+          <td><span class="bu-pill" style="background:#39d35322;color:#39d353">JOTA EDITION</span></td>
+          <td><strong>MARCOS VARANDAS</strong></td>
+          <td class="muted" style="font-size:12px">MAQUINA TRIPLA</td>
+          <td class="muted">Abril</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 7K</td>
+        </tr><tr data-mes="Abril" data-bu="JOTA EDITION">
+          <td class="muted">68</td>
+          <td class="muted">15/04/2026</td>
+          <td><span class="bu-pill" style="background:#39d35322;color:#39d353">JOTA EDITION</span></td>
+          <td><strong>ANA PAULA</strong></td>
+          <td class="muted" style="font-size:12px">MAQUINA TRIPLA - ON LINE</td>
+          <td class="muted">Abril</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 3K</td>
+        </tr><tr data-mes="Abril" data-bu="JOTA EDITION">
+          <td class="muted">69</td>
+          <td class="muted">18/04/2026</td>
+          <td><span class="bu-pill" style="background:#39d35322;color:#39d353">JOTA EDITION</span></td>
+          <td><strong>ANDRÉ PIVETTI</strong></td>
+          <td class="muted" style="font-size:12px">MAQUINA TRIPLA</td>
+          <td class="muted">Abril</td>
+          <td class="muted">KATH</td>
+          <td class="num" style="color:#3fb950">R$ 3K</td>
+        </tr><tr data-mes="Abril" data-bu="JOTA EDITION">
+          <td class="muted">70</td>
+          <td class="muted">18/04/2026</td>
+          <td><span class="bu-pill" style="background:#39d35322;color:#39d353">JOTA EDITION</span></td>
+          <td><strong>JAMILE</strong></td>
+          <td class="muted" style="font-size:12px">MAQUINA TRIPLA</td>
+          <td class="muted">Abril</td>
+          <td class="muted">RAFAEL</td>
+          <td class="num" style="color:#3fb950">R$ 10K</td>
+        </tr><tr data-mes="Abril" data-bu="JOTA EDITION">
+          <td class="muted">71</td>
+          <td class="muted">20/04/2026</td>
+          <td><span class="bu-pill" style="background:#39d35322;color:#39d353">JOTA EDITION</span></td>
+          <td><strong>ROBSON</strong></td>
+          <td class="muted" style="font-size:12px">MAQUINA TRIPLA</td>
+          <td class="muted">Abril</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 3K</td>
+        </tr><tr data-mes="Abril" data-bu="JOTA EDITION">
+          <td class="muted">72</td>
+          <td class="muted">20/04/2026</td>
+          <td><span class="bu-pill" style="background:#39d35322;color:#39d353">JOTA EDITION</span></td>
+          <td><strong>EDUARDO RAMALHO</strong></td>
+          <td class="muted" style="font-size:12px">MAQUINA TRIPLA</td>
+          <td class="muted">Abril</td>
+          <td class="muted">KATH</td>
+          <td class="num" style="color:#3fb950">R$ 3K</td>
+        </tr><tr data-mes="Abril" data-bu="JOTA LAB">
+          <td class="muted">73</td>
+          <td class="muted">22/04/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>CLAX CLUB - ROBERTA</strong></td>
+          <td class="muted" style="font-size:12px">LOCAÇÃO JLAB</td>
+          <td class="muted">Abril</td>
+          <td class="muted">JOEL JOTA</td>
+          <td class="num" style="color:#3fb950">R$ 20K</td>
+        </tr><tr data-mes="Abril" data-bu="JOTA EDITION">
+          <td class="muted">74</td>
+          <td class="muted">22/04/2026</td>
+          <td><span class="bu-pill" style="background:#39d35322;color:#39d353">JOTA EDITION</span></td>
+          <td><strong>LUCIANO MACARO</strong></td>
+          <td class="muted" style="font-size:12px">MAQUINA TRIPLA</td>
+          <td class="muted">Abril</td>
+          <td class="muted">KATH</td>
+          <td class="num" style="color:#3fb950">R$ 3K</td>
+        </tr><tr data-mes="Abril" data-bu="JOTA LAB">
+          <td class="muted">75</td>
+          <td class="muted">24/04/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>PEDRO QUINTANILHA</strong></td>
+          <td class="muted" style="font-size:12px">LIVROS - 300 NÃO É MILAGRE</td>
+          <td class="muted">Abril</td>
+          <td class="muted">JOEL JOTA</td>
+          <td class="num" style="color:#3fb950">R$ 15K</td>
+        </tr><tr data-mes="Abril" data-bu="JOTA EDITION">
+          <td class="muted">76</td>
+          <td class="muted">24/04/2026</td>
+          <td><span class="bu-pill" style="background:#39d35322;color:#39d353">JOTA EDITION</span></td>
+          <td><strong>INDIO DA COSTA</strong></td>
+          <td class="muted" style="font-size:12px">MAQUINA TRIPLA - 5 PESSOAS</td>
+          <td class="muted">Abril</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 10K</td>
+        </tr><tr data-mes="Abril" data-bu="JOTA EDITION">
+          <td class="muted">77</td>
+          <td class="muted">24/04/2026</td>
+          <td><span class="bu-pill" style="background:#39d35322;color:#39d353">JOTA EDITION</span></td>
+          <td><strong>FERNANDO MARCOS</strong></td>
+          <td class="muted" style="font-size:12px">MAQUINA TRIPLA</td>
+          <td class="muted">Abril</td>
+          <td class="muted">RAFAEL</td>
+          <td class="num" style="color:#3fb950">R$ 3K</td>
+        </tr><tr data-mes="Abril" data-bu="ADVISORY">
+          <td class="muted">78</td>
+          <td class="muted">26/04/2026</td>
+          <td><span class="bu-pill" style="background:#bc8cff22;color:#bc8cff">ADVISORY</span></td>
+          <td><strong>CAIO BARBOSA</strong></td>
+          <td class="muted" style="font-size:12px">ADVISORY 30 DIAS</td>
+          <td class="muted">Abril</td>
+          <td class="muted">GRASI / EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 1.0M</td>
+        </tr><tr data-mes="Abril" data-bu="JOTA LAB">
+          <td class="muted">79</td>
+          <td class="muted">29/04/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>PEDRO QUINTANILHA</strong></td>
+          <td class="muted" style="font-size:12px">LOCAÇÃO JOTA LAB</td>
+          <td class="muted">Abril</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 50K</td>
+        </tr><tr data-mes="Abril" data-bu="ADSENSE">
+          <td class="muted">80</td>
+          <td class="muted">30/04/2026</td>
+          <td><span class="bu-pill" style="background:#8b949e22;color:#8b949e">ADSENSE</span></td>
+          <td><strong>ADSENSE ABRIL</strong></td>
+          <td class="muted" style="font-size:12px">—</td>
+          <td class="muted">Abril</td>
+          <td class="muted">—</td>
+          <td class="num" style="color:#3fb950">R$ 75K</td>
+        </tr><tr data-mes="Abril" data-bu="JOTA EDITION">
+          <td class="muted">81</td>
+          <td class="muted">30/04/2026</td>
+          <td><span class="bu-pill" style="background:#39d35322;color:#39d353">JOTA EDITION</span></td>
+          <td><strong>MAQUINA TRIPLA</strong></td>
+          <td class="muted" style="font-size:12px">VENDA DE LIVROS NO EVENTO</td>
+          <td class="muted">Abril</td>
+          <td class="muted">TIME</td>
+          <td class="num" style="color:#3fb950">R$ 4K</td>
+        </tr><tr data-mes="Maio" data-bu="PUBLICIDADE">
+          <td class="muted">82</td>
+          <td class="muted">04/05/2026</td>
+          <td><span class="bu-pill" style="background:#ffa65722;color:#ffa657">PUBLICIDADE</span></td>
+          <td><strong>HOSTINGER</strong></td>
+          <td class="muted" style="font-size:12px">1 VÍDEO CONCEITO</td>
+          <td class="muted">Maio</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 120K</td>
+        </tr><tr data-mes="Maio" data-bu="JOTA LAB">
+          <td class="muted">83</td>
+          <td class="muted">04/05/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>RAFAEL NUNES</strong></td>
+          <td class="muted" style="font-size:12px">LOCAÇÃO JOTALAB - GRAVAÇÃO PODCAST</td>
+          <td class="muted">Maio</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 40K</td>
+        </tr><tr data-mes="Maio" data-bu="JOTA LAB">
+          <td class="muted">84</td>
+          <td class="muted">08/05/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>ALINE / GUSTAVO</strong></td>
+          <td class="muted" style="font-size:12px">LOCAÇÃO JOTA LAB</td>
+          <td class="muted">Maio</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 32K</td>
+        </tr><tr data-mes="Maio" data-bu="JOTA LAB">
+          <td class="muted">85</td>
+          <td class="muted">08/05/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>MAURO - MEDICAL SAN</strong></td>
+          <td class="muted" style="font-size:12px">LOCAÇÃO JOTA ALB</td>
+          <td class="muted">Maio</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 25K</td>
+        </tr><tr data-mes="Maio" data-bu="SELETO">
+          <td class="muted">86</td>
+          <td class="muted">08/05/2026</td>
+          <td><span class="bu-pill" style="background:#58a6ff22;color:#58a6ff">SELETO</span></td>
+          <td><strong>VANESSA GOLTZMAN</strong></td>
+          <td class="muted" style="font-size:12px">SELETO</td>
+          <td class="muted">Maio</td>
+          <td class="muted">GRASI/EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 3.0M</td>
+        </tr><tr data-mes="Maio" data-bu="SELETO">
+          <td class="muted">87</td>
+          <td class="muted">08/05/2026</td>
+          <td><span class="bu-pill" style="background:#58a6ff22;color:#58a6ff">SELETO</span></td>
+          <td><strong>WALKYRIA</strong></td>
+          <td class="muted" style="font-size:12px">SELETO</td>
+          <td class="muted">Maio</td>
+          <td class="muted">GRASI / EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 3.0M</td>
+        </tr><tr data-mes="Maio" data-bu="PUBLICIDADE">
+          <td class="muted">88</td>
+          <td class="muted">14/05/2026</td>
+          <td><span class="bu-pill" style="background:#ffa65722;color:#ffa657">PUBLICIDADE</span></td>
+          <td><strong>MARÍLIA CARDOSO</strong></td>
+          <td class="muted" style="font-size:12px">PODCAST COM PLATÉIA</td>
+          <td class="muted">Maio</td>
+          <td class="muted">GRASI</td>
+          <td class="num" style="color:#3fb950">R$ 1.0M</td>
+        </tr><tr data-mes="Maio" data-bu="JOTA EDITION">
+          <td class="muted">89</td>
+          <td class="muted">13/05/2026</td>
+          <td><span class="bu-pill" style="background:#39d35322;color:#39d353">JOTA EDITION</span></td>
+          <td><strong>ANDREZA</strong></td>
+          <td class="muted" style="font-size:12px">MÁQUINA TRIPLA</td>
+          <td class="muted">Maio</td>
+          <td class="muted">KATH</td>
+          <td class="num" style="color:#3fb950">R$ 3K</td>
+        </tr><tr data-mes="Maio" data-bu="PUBLICIDADE">
+          <td class="muted">90</td>
+          <td class="muted">19/05/2026</td>
+          <td><span class="bu-pill" style="background:#ffa65722;color:#ffa657">PUBLICIDADE</span></td>
+          <td><strong>NUVEMSHOP</strong></td>
+          <td class="muted" style="font-size:12px">PUBLICIDADE</td>
+          <td class="muted">Maio</td>
+          <td class="muted">GRASI/EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 3.0M</td>
+        </tr><tr data-mes="Maio" data-bu="JOTA LAB">
+          <td class="muted">91</td>
+          <td class="muted">20/05/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>SELETO - INDIO DA COSTA</strong></td>
+          <td class="muted" style="font-size:12px">JJ PODCAST</td>
+          <td class="muted">Maio</td>
+          <td class="muted">JOEL JOTA</td>
+          <td class="num" style="color:#3fb950">R$ 20K</td>
+        </tr><tr data-mes="Maio" data-bu="JOTA LAB">
+          <td class="muted">92</td>
+          <td class="muted">27/05/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>KAT E ESTEFANO</strong></td>
+          <td class="muted" style="font-size:12px">LOCAÇÃO JOTALAB - GRAVAÇÃO PODCAST</td>
+          <td class="muted">Maio</td>
+          <td class="muted">MARIA</td>
+          <td class="num" style="color:#3fb950">R$ 40K</td>
+        </tr><tr data-mes="Maio" data-bu="A TRINCA MÍDIA">
+          <td class="muted">93</td>
+          <td class="muted">27/05/2026</td>
+          <td><span class="bu-pill" style="background:#f8514922;color:#f85149">A TRINCA MÍDIA</span></td>
+          <td><strong>SUÉLIO</strong></td>
+          <td class="muted" style="font-size:12px">A TRINCA PARTICIPAÇÕES</td>
+          <td class="muted">Maio</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 1.5M</td>
+        </tr><tr data-mes="Maio" data-bu="A TRINCA MÍDIA">
+          <td class="muted">94</td>
+          <td class="muted">27/05/2026</td>
+          <td><span class="bu-pill" style="background:#f8514922;color:#f85149">A TRINCA MÍDIA</span></td>
+          <td><strong>ADAPTA</strong></td>
+          <td class="muted" style="font-size:12px">A TRINCA PUBLICIDADE</td>
+          <td class="muted">Maio</td>
+          <td class="muted">X</td>
+          <td class="num" style="color:#3fb950">R$ 5.0M</td>
+        </tr><tr data-mes="Maio" data-bu="JOTA EDITION">
+          <td class="muted">95</td>
+          <td class="muted">29/05/2026</td>
+          <td><span class="bu-pill" style="background:#39d35322;color:#39d353">JOTA EDITION</span></td>
+          <td><strong>IAGO SANTARÉM</strong></td>
+          <td class="muted" style="font-size:12px">JOTA EDITION</td>
+          <td class="muted">Maio</td>
+          <td class="muted">KATH</td>
+          <td class="num" style="color:#3fb950">R$ 6K</td>
+        </tr><tr data-mes="Maio" data-bu="ADSENSE">
+          <td class="muted">96</td>
+          <td class="muted">29/05/2026</td>
+          <td><span class="bu-pill" style="background:#8b949e22;color:#8b949e">ADSENSE</span></td>
+          <td><strong>ADSENSE</strong></td>
+          <td class="muted" style="font-size:12px">—</td>
+          <td class="muted">Maio</td>
+          <td class="muted">X</td>
+          <td class="num" style="color:#3fb950">R$ 65K</td>
+        </tr><tr data-mes="Junho" data-bu="JOTA LAB">
+          <td class="muted">97</td>
+          <td class="muted">03/06/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>NAYARA MARRA</strong></td>
+          <td class="muted" style="font-size:12px">LOCAÇÃO JOTA LAB</td>
+          <td class="muted">Junho</td>
+          <td class="muted">KATH</td>
+          <td class="num" style="color:#3fb950">R$ 32K</td>
+        </tr><tr data-mes="Junho" data-bu="JOTA LAB">
+          <td class="muted">98</td>
+          <td class="muted">03/06/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>LUCIANO MACARRO</strong></td>
+          <td class="muted" style="font-size:12px">LOCAÇÃO JOTALAB - GRAVAÇÃO PODCAST</td>
+          <td class="muted">Junho</td>
+          <td class="muted">KATH</td>
+          <td class="num" style="color:#3fb950">R$ 46K</td>
+        </tr><tr data-mes="Junho" data-bu="JOTA LAB">
+          <td class="muted">99</td>
+          <td class="muted">03/06/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>ROSANGELA LOPES</strong></td>
+          <td class="muted" style="font-size:12px">LOCAÇÃO JOTA LAB</td>
+          <td class="muted">Junho</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 25K</td>
+        </tr><tr data-mes="Junho" data-bu="JOTA LAB">
+          <td class="muted">100</td>
+          <td class="muted">03/06/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>RAFAEL NUNES</strong></td>
+          <td class="muted" style="font-size:12px">LOCAÇÃO JOTALAB - GRAVAÇÃO PODCAST</td>
+          <td class="muted">Junho</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 40K</td>
+        </tr><tr data-mes="Junho" data-bu="JOTA LAB">
+          <td class="muted">101</td>
+          <td class="muted">16/06/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>THALIZA ZANIN</strong></td>
+          <td class="muted" style="font-size:12px">LOCAÇÃO</td>
+          <td class="muted">Junho</td>
+          <td class="muted">MARIA</td>
+          <td class="num" style="color:#3fb950">R$ 25K</td>
+        </tr><tr data-mes="Junho" data-bu="JOTA LAB">
+          <td class="muted">102</td>
+          <td class="muted">22/06/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>KAT E STEFANO</strong></td>
+          <td class="muted" style="font-size:12px">JOTALAB + GRAVAÇÃO PODCAST</td>
+          <td class="muted">Junho</td>
+          <td class="muted">MARIA</td>
+          <td class="num" style="color:#3fb950">R$ 40K</td>
+        </tr><tr data-mes="Junho" data-bu="JOTA LAB">
+          <td class="muted">103</td>
+          <td class="muted">23/06/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>PEDRO QUINTANILHA</strong></td>
+          <td class="muted" style="font-size:12px">LOCAÇÃO</td>
+          <td class="muted">Junho</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 2K</td>
+        </tr><tr data-mes="Junho" data-bu="JOTA LAB">
+          <td class="muted">104</td>
+          <td class="muted">24/06/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>THIAGO MANCUSSI</strong></td>
+          <td class="muted" style="font-size:12px">LOCAÇÃO JOTA LAB</td>
+          <td class="muted">Junho</td>
+          <td class="muted">EMILY</td>
+          <td class="num" style="color:#3fb950">R$ 50K</td>
+        </tr><tr data-mes="Junho" data-bu="JOTA LAB">
+          <td class="muted">105</td>
+          <td class="muted">26/06/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>PEDRO CARDIO EASY</strong></td>
+          <td class="muted" style="font-size:12px">LOCAÇÃO JOTA LAB</td>
+          <td class="muted">Junho</td>
+          <td class="muted">MARIA</td>
+          <td class="num" style="color:#3fb950">R$ 25K</td>
+        </tr><tr data-mes="Junho" data-bu="JOTA LAB">
+          <td class="muted">106</td>
+          <td class="muted">30/06/2026</td>
+          <td><span class="bu-pill" style="background:#3fb95022;color:#3fb950">JOTA LAB</span></td>
+          <td><strong>MARÍLIA ANDRIOLLI</strong></td>
+          <td class="muted" style="font-size:12px">JOTALAB + GRAVAÇÃO PODCAST</td>
+          <td class="muted">Junho</td>
+          <td class="muted">MARIA</td>
+          <td class="num" style="color:#3fb950">R$ 37K</td>
+        </tr></tbody>
+          <tfoot><tr><td colspan="7"><strong>Total visível</strong></td><td class="num" id="h1-total" style="color:#3fb950"><strong>R$ 38.8M</strong></td></tr></tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div id="pg-jotaco" class="page" style="display:none">
@@ -1306,6 +2446,26 @@ function filtPipe(tbodyId, totalId, bu, btn) {
   });
   const fmt = total >= 1e6 ? 'R$ '+(total/1e6).toFixed(1)+'M' : 'R$ '+(total/1e3).toFixed(0)+'K';
   document.getElementById(totalId).textContent = fmt;
+}
+function filtH1(val, tipo, btn) {
+  const card = btn.closest('.card');
+  card.querySelectorAll('.fbtn').forEach(b => {
+    if (b.getAttribute('onclick').includes("'"+tipo+"'") || val === 'todos') b.classList.remove('active');
+  });
+  btn.classList.add('active');
+  let total = 0;
+  document.querySelectorAll('#h1-tbody tr').forEach(row => {
+    const show = val === 'todos' || row.dataset[tipo] === val;
+    row.style.display = show ? '' : 'none';
+    if (show) {
+      const tds = row.querySelectorAll('td');
+      const v = tds[tds.length-1].textContent.replace('R$','').replace(/[.\s]/g,'').replace(',','.').trim();
+      const num = parseFloat(v.replace(/[^0-9.,]/g,'').replace(',','.'));
+      if (!isNaN(num)) total += num;
+    }
+  });
+  const fmt = total >= 1e6 ? 'R$ '+(total/1e6).toFixed(1)+'M' : 'R$ '+(total/1e3).toFixed(0)+'K';
+  document.getElementById('h1-total').textContent = fmt;
 }
 </script>
 </body>
