@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pipeline Seleto 2026</title>
+<style>
+  :root {
+    --neg: #f59e0b;
+    --contrato: #10b981;
+    --bg: #0f172a;
+    --card: #1e293b;
+    --card2: #263347;
+    --text: #f1f5f9;
+    --muted: #94a3b8;
+    --border: #334155;
+    --accent: #6366f1;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 24px;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+  }
+
+  header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+
+  header span {
+    font-size: 13px;
+    color: var(--muted);
+    background: var(--card);
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+  }
+
+  /* KPI Cards */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+
+  .kpi {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 22px;
+  }
+
+  .kpi label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .kpi .value {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .kpi .sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+
+  .kpi.highlight { border-color: var(--contrato); }
+  .kpi.highlight .value { color: var(--contrato); }
+  .kpi.warn .value { color: var(--neg); }
+
+  /* Progress bar */
+  .progress-wrap {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 22px;
+    margin-bottom: 24px;
+  }
+
+  .progress-wrap .prog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+
+  .progress-wrap h3 { font-size: 14px; font-weight: 600; }
+  .progress-wrap .pct { font-size: 22px; font-weight: 700; color: var(--contrato); }
+
+  .bar-bg {
+    height: 12px;
+    background: var(--border);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    border-radius: 99px;
+    background: linear-gradient(90deg, var(--contrato), #34d399);
+    width: 100%;
+    transition: width 0.8s ease;
+  }
+
+  .bar-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+
+  /* Grid de 3 colunas para tabelas resumo */
+  .summary-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+
+  .summary-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 20px;
+  }
+
+  .summary-card h3 {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+
+  .summary-card table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .summary-card th {
+    text-align: left;
+    color: var(--muted);
+    font-weight: 500;
+    font-size: 11px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .summary-card th:not(:first-child) { text-align: right; }
+  .summary-card td { padding: 8px 0; border-bottom: 1px solid rgba(51,65,85,0.5); }
+  .summary-card td:not(:first-child) { text-align: right; }
+  .summary-card tr:last-child td { border-bottom: none; }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 99px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .badge.neg { background: rgba(245,158,11,0.15); color: var(--neg); }
+  .badge.cont { background: rgba(16,185,129,0.15); color: var(--contrato); }
+
+  /* Tabela principal */
+  .table-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 20px;
+  }
+
+  .table-card h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  .filters {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    border-radius: 8px;
+    padding: 5px 14px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    border-color: var(--accent);
+    color: var(--text);
+    background: rgba(99,102,241,0.12);
+  }
+
+  .main-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .main-table th {
+    text-align: left;
+    color: var(--muted);
+    font-weight: 500;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .main-table td {
+    padding: 11px 12px;
+    border-bottom: 1px solid rgba(51,65,85,0.4);
+  }
+  .main-table tr:last-child td { border-bottom: none; }
+  .main-table tr:hover td { background: rgba(255,255,255,0.03); }
+
+  .main-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .main-table td.id { color: var(--muted); font-size: 12px; }
+
+  .dot {
+    display: inline-block;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    margin-right: 6px;
+  }
+  .dot.neg { background: var(--neg); }
+  .dot.cont { background: var(--contrato); }
+
+  .total-row td {
+    font-weight: 700;
+    color: var(--text) !important;
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
+  }
+
+  @media (max-width: 900px) {
+    .kpi-row { grid-template-columns: repeat(2, 1fr); }
+    .summary-row { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .kpi-row { grid-template-columns: 1fr 1fr; }
+    body { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🎯 Pipeline · Seleto 2026</h1>
+  <span>Atualizado em 06/06/2026</span>
+</header>
+
+<!-- KPIs -->
+<div class="kpi-row">
+  <div class="kpi highlight">
+    <label>Pipe Total</label>
+    <div class="value">R$ 26,4M</div>
+    <div class="sub">19 oportunidades</div>
+  </div>
+  <div class="kpi">
+    <label>Meta do Mês</label>
+    <div class="value">R$ 20,0M</div>
+    <div class="sub">Junho 2026</div>
+  </div>
+  <div class="kpi highlight">
+    <label>Atingimento</label>
+    <div class="value">132%</div>
+    <div class="sub">+R$ 6,39M acima da meta</div>
+  </div>
+  <div class="kpi warn">
+    <label>Em Negociação</label>
+    <div class="value">R$ 14,0M</div>
+    <div class="sub">12 oportunidades</div>
+  </div>
+</div>
+
+<!-- Barra de progresso -->
+<div class="progress-wrap">
+  <div class="prog-header">
+    <h3>Progresso vs Meta</h3>
+    <span class="pct">132%</span>
+  </div>
+  <div class="bar-bg">
+    <div class="bar-fill" style="width:100%"></div>
+  </div>
+  <div class="bar-labels">
+    <span>R$ 0</span>
+    <span>Meta: R$ 20,0M</span>
+    <span>Pipe: R$ 26,4M</span>
+  </div>
+</div>
+
+<!-- Resumos -->
+<div class="summary-row">
+
+  <!-- Por Status -->
+  <div class="summary-card">
+    <h3>Por Status</h3>
+    <table>
+      <thead>
+        <tr><th>Status</th><th>Qtde</th><th>Total</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge neg">Negociação</span></td>
+          <td>12</td>
+          <td>R$ 14,0M</td>
+        </tr>
+        <tr>
+          <td><span class="badge cont">Iniciar Contrato</span></td>
+          <td>7</td>
+          <td>R$ 12,4M</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Por Origem -->
+  <div class="summary-card">
+    <h3>Por Origem</h3>
+    <table>
+      <thead>
+        <tr><th>Origem</th><th>Qtde</th><th>Total</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Clax Club</td>
+          <td>9</td>
+          <td>R$ 13,5M</td>
+        </tr>
+        <tr>
+          <td>Evento MLS 05 jun</td>
+          <td>10</td>
+          <td>R$ 12,9M</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Por B.U. / Produto -->
+  <div class="summary-card">
+    <h3>Por Produto</h3>
+    <table>
+      <thead>
+        <tr><th>Produto</th><th>Qtde</th><th>Total</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Publicidade - Podcast c/ Plateia</td><td>10</td><td>R$ 10,0M</td></tr>
+        <tr><td>Podcast Triplo - A Trinca Mídia</td><td>4</td><td>R$ 8,0M</td></tr>
+        <tr><td>Podcast JJ + CVFI</td><td>3</td><td>R$ 4,5M</td></tr>
+        <tr><td>Seleto</td><td>1</td><td>R$ 3,0M</td></tr>
+        <tr><td>Palestra Joel e Lalas</td><td>1</td><td>R$ 890K</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<!-- Tabela principal -->
+<div class="table-card">
+  <h3>Todas as Oportunidades</h3>
+
+  <div class="filters">
+    <button class="filter-btn active" onclick="filtrar('todos', this)">Todos (19)</button>
+    <button class="filter-btn" onclick="filtrar('NEGOCIACAO', this)">Negociação (12)</button>
+    <button class="filter-btn" onclick="filtrar('INICIAR CONTRATO', this)">Iniciar Contrato (7)</button>
+    <button class="filter-btn" onclick="filtrar('Clax Club', this)">Clax Club</button>
+    <button class="filter-btn" onclick="filtrar('Evento MLS 05 jun', this)">Evento MLS</button>
+  </div>
+
+  <table class="main-table" id="mainTable">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Cliente</th>
+        <th>Produto (B.U.)</th>
+        <th>Origem</th>
+        <th>Status</th>
+        <th style="text-align:right">Valor (R$)</th>
+      </tr>
+    </thead>
+    <tbody id="tbody">
+      <tr data-status="INICIAR CONTRATO" data-origem="Clax Club">
+        <td class="id">1</td>
+        <td>Vanilton</td>
+        <td>Seleto</td>
+        <td>Clax Club</td>
+        <td><span class="badge cont">Iniciar Contrato</span></td>
+        <td class="num">R$ 3.000.000</td>
+      </tr>
+      <tr data-status="INICIAR CONTRATO" data-origem="Clax Club">
+        <td class="id">2</td>
+        <td>João Barcellos</td>
+        <td>Podcast Triplo - A Trinca Mídia</td>
+        <td>Clax Club</td>
+        <td><span class="badge cont">Iniciar Contrato</span></td>
+        <td class="num">R$ 2.000.000</td>
+      </tr>
+      <tr data-status="NEGOCIACAO" data-origem="Clax Club">
+        <td class="id">3</td>
+        <td>Ana</td>
+        <td>Publicidade - Podcast com Plateia</td>
+        <td>Clax Club</td>
+        <td><span class="badge neg">Negociação</span></td>
+        <td class="num">R$ 1.000.000</td>
+      </tr>
+      <tr data-status="INICIAR CONTRATO" data-origem="Clax Club">
+        <td class="id">4</td>
+        <td>Tiago Moura</td>
+        <td>Podcast JJ + CVFI</td>
+        <td>Clax Club</td>
+        <td><span class="badge cont">Iniciar Contrato</span></td>
+        <td class="num">R$ 1.500.000</td>
+      </tr>
+      <tr data-status="NEGOCIACAO" data-origem="Clax Club">
+        <td class="id">5</td>
+        <td>Luciano</td>
+        <td>Publicidade - Podcast com Plateia</td>
+        <td>Clax Club</td>
+        <td><span class="badge neg">Negociação</span></td>
+        <td class="num">R$ 1.000.000</td>
+      </tr>
+      <tr data-status="NEGOCIACAO" data-origem="Clax Club">
+        <td class="id">6</td>
+        <td>Dr. Camila Kil</td>
+        <td>Publicidade - Podcast com Plateia</td>
+        <td>Clax Club</td>
+        <td><span class="badge neg">Negociação</span></td>
+        <td class="num">R$ 1.000.000</td>
+      </tr>
+      <tr data-status="NEGOCIACAO" data-origem="Clax Club">
+        <td class="id">7</td>
+        <td>Diego do Valle</td>
+        <td>Podcast Triplo - A Trinca Mídia</td>
+        <td>Clax Club</td>
+        <td><span class="badge neg">Negociação</span></td>
+        <td class="num">R$ 2.000.000</td>
+      </tr>
+      <tr data-status="NEGOCIACAO" data-origem="Clax Club">
+        <td class="id">8</td>
+        <td>Jorge</td>
+        <td>Publicidade - Podcast com Plateia</td>
+        <td>Clax Club</td>
+        <td><span class="badge neg">Negociação</span></td>
+        <td class="num">R$ 1.000.000</td>
+      </tr>
+      <tr data-status="NEGOCIACAO" data-origem="Clax Club">
+        <td class="id">9</td>
+        <td>Leo Toledo</td>
+        <td>Publicidade - Podcast com Plateia</td>
+        <td>Clax Club</td>
+        <td><span class="badge neg">Negociação</span></td>
+        <td class="num">R$ 1.000.000</td>
+      </tr>
+      <tr data-status="INICIAR CONTRATO" data-origem="Evento MLS 05 jun">
+        <td class="id">10</td>
+        <td>Victor</td>
+        <td>Podcast JJ + CVFI</td>
+        <td>Evento MLS 05 jun</td>
+        <td><span class="badge cont">Iniciar Contrato</span></td>
+        <td class="num">R$ 1.500.000</td>
+      </tr>
+      <tr data-status="INICIAR CONTRATO" data-origem="Evento MLS 05 jun">
+        <td class="id">11</td>
+        <td>Natasha e Rafael</td>
+        <td>Podcast JJ + CVFI</td>
+        <td>Evento MLS 05 jun</td>
+        <td><span class="badge cont">Iniciar Contrato</span></td>
+        <td class="num">R$ 1.500.000</td>
+      </tr>
+      <tr data-status="NEGOCIACAO" data-origem="Evento MLS 05 jun">
+        <td class="id">12</td>
+        <td>Tati Teofilo e Zé</td>
+        <td>Publicidade - Podcast com Plateia</td>
+        <td>Evento MLS 05 jun</td>
+        <td><span class="badge neg">Negociação</span></td>
+        <td class="num">R$ 1.000.000</td>
+      </tr>
+      <tr data-status="INICIAR CONTRATO" data-origem="Evento MLS 05 jun">
+        <td class="id">13</td>
+        <td>Gabriel Longuini</td>
+        <td>Podcast Triplo - A Trinca Mídia</td>
+        <td>Evento MLS 05 jun</td>
+        <td><span class="badge cont">Iniciar Contrato</span></td>
+        <td class="num">R$ 2.000.000</td>
+      </tr>
+      <tr data-status="NEGOCIACAO" data-origem="Evento MLS 05 jun">
+        <td class="id">14</td>
+        <td>Lara</td>
+        <td>Publicidade - Podcast com Plateia</td>
+        <td>Evento MLS 05 jun</td>
+        <td><span class="badge neg">Negociação</span></td>
+        <td class="num">R$ 1.000.000</td>
+      </tr>
+      <tr data-status="NEGOCIACAO" data-origem="Evento MLS 05 jun">
+        <td class="id">15</td>
+        <td>Dr. Carlos Netto</td>
+        <td>Podcast Triplo - A Trinca Mídia</td>
+        <td>Evento MLS 05 jun</td>
+        <td><span class="badge neg">Negociação</span></td>
+        <td class="num">R$ 2.000.000</td>
+      </tr>
+      <tr data-status="INICIAR CONTRATO" data-origem="Evento MLS 05 jun">
+        <td class="id">16</td>
+        <td>Palestra Rio Preto</td>
+        <td>Palestra Joel e Lalas</td>
+        <td>Evento MLS 05 jun</td>
+        <td><span class="badge cont">Iniciar Contrato</span></td>
+        <td class="num">R$ 890.000</td>
+      </tr>
+      <tr data-status="NEGOCIACAO" data-origem="Evento MLS 05 jun">
+        <td class="id">17</td>
+        <td>Nubia</td>
+        <td>Publicidade - Podcast com Plateia</td>
+        <td>Evento MLS 05 jun</td>
+        <td><span class="badge neg">Negociação</span></td>
+        <td class="num">R$ 1.000.000</td>
+      </tr>
+      <tr data-status="NEGOCIACAO" data-origem="Evento MLS 05 jun">
+        <td class="id">18</td>
+        <td>Lee</td>
+        <td>Publicidade - Podcast com Plateia</td>
+        <td>Evento MLS 05 jun</td>
+        <td><span class="badge neg">Negociação</span></td>
+        <td class="num">R$ 1.000.000</td>
+      </tr>
+      <tr data-status="NEGOCIACAO" data-origem="Evento MLS 05 jun">
+        <td class="id">19</td>
+        <td>Jaqueline</td>
+        <td>Publicidade - Podcast com Plateia</td>
+        <td>Evento MLS 05 jun</td>
+        <td><span class="badge neg">Negociação</span></td>
+        <td class="num">R$ 1.000.000</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr class="total-row">
+        <td colspan="5"><strong>Total</strong></td>
+        <td class="num" id="totalValue">R$ 26.390.000</td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<script>
+  const allRows = Array.from(document.querySelectorAll('#tbody tr'));
+
+  function filtrar(tipo, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    let total = 0;
+    allRows.forEach(row => {
+      const status = row.dataset.status;
+      const origem = row.dataset.origem;
+      const visible = tipo === 'todos' || status === tipo || origem === tipo;
+      row.style.display = visible ? '' : 'none';
+      if (visible) {
+        const val = row.querySelector('.num').textContent
+          .replace('R$', '').replace(/\./g, '').trim();
+        total += parseInt(val) || 0;
+      }
+    });
+
+    document.getElementById('totalValue').textContent =
+      'R$ ' + total.toLocaleString('pt-BR');
+  }
+</script>
+
+</body>
+</html>
